@@ -173,8 +173,8 @@ var options = {
     'bearer': 'eyJ0eXAiOiJKV1Q...'
   },
   form: {
-      reference: 'SHIPMENT1',
-      reference2: 'ORDER1',
+      reference: 'S1234',
+      reference2: 'O1234',
       shipment_detail: {
           weight: 1.25,
           parcels: 1,
@@ -294,6 +294,26 @@ curl_close($ch);
 
 echo $result;
 ```
+
+```javascript
+// make sure you have installed the reques module (npm install request)
+var request = require('request');
+
+request.get('https://shiptheory.com/api/shipments/S1234', {
+  headers: {
+    'Accept': 'application/json'
+  },
+  auth: {
+    'bearer': 'eyJ0eXAiOiJKV1Q...'
+  }
+}, function optionalCallback(err, httpResponse, body) {
+  if (err) {
+    return console.error('Request Failed:', err);
+  }
+  console.log(body);
+});
+```
+
 > The above code returns JSON structured like this:
 
 ```json
