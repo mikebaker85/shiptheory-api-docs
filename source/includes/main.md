@@ -105,7 +105,7 @@ Authentication tokens <code>expire after 10 minutes</code>.
 ```php
 $data = json_encode(
     array(
-        "reference" => "1001",
+        "reference" => "S1234",
         "reference2" => "ORDER1001",
         "shipment_detail" => array(
             "weight" => 1.25,
@@ -174,7 +174,7 @@ var options = {
   },
   form: {
       reference: 'S1234',
-      reference2: 'O1234',
+      reference2: 'ORDER1001',
       shipment_detail: {
           weight: 1.25,
           parcels: 1,
@@ -319,7 +319,7 @@ request.get('https://shiptheory.com/api/shipments/S1234', {
 ```json
 {
   "shipment": {
-    "channel_reference_id": "1001",
+    "channel_reference_id": "S1234",
     "channel_reference_id_2": "ORDER1001",
     "created": "2016-04-27T20:42:57+0000",
     "modified": "2016-04-27T20:44:03+0000",
