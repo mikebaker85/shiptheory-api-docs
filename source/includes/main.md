@@ -324,6 +324,24 @@ curl_close($ch);
 
 echo $result;
 ```
+
+```javascript
+
+request.get('https://shiptheory.com/api/services', {
+  headers: {
+    'Accept': 'application/json'
+  },
+  auth: {
+    'bearer': 'eyJ0eXAiO....'
+  }
+}, function optionalCallback(err, httpResponse, body) {
+  if (err) {
+    return console.error('Request Failed:', err);
+  }
+  console.log(body);
+});
+```
+
 > The above code returns JSON structured like this:
 
 ```json
