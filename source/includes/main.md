@@ -158,6 +158,61 @@ curl_close($ch);
 
 echo $result;
 ```
+
+```javascript
+// make sure you have installed the reques module (npm install request)
+var request = require('request');
+
+var options = {
+  url: 'https://shiptheory.com/api/shipments',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
+  auth: {
+    'bearer': 'eyJ0eXAiOiJKV1Q...'
+  },
+  form: {
+      reference: 'SHIPMENT1',
+      reference2: 'ORDER1',
+      shipment_detail: {
+          weight: 1.25,
+          parcels: 1,
+          value: 150
+      },
+      recipient: {
+          company: 'Beard Supplies Co',
+          firstname: 'William',
+          lastname: 'Riker',
+          address_line_1: '123 Southpaw Lane',
+          city: 'Bristol',
+          postcode: 'BS2 3AP',
+          telephone: '01161231245',
+          country: 'GB'
+      },
+      products: [{
+          name: 'USS Beard Trimmer 500',
+          sku: 'ussbeard500',
+          value: 32.50,
+          weight: 25.00
+      },
+      {
+          name: 'Earl Grey Gift Set',
+          sku: 'earlgrey',
+          value: 49.99,
+          weight: 10.00
+      }]
+    }
+};
+
+request.post(options, function optionalCallback(err, httpResponse, body) {
+  if (err) {
+    return console.error('Request Failed:', err);
+  }
+  console.log(body);
+});
+```
+
 > The above code returns JSON structured like this:
 
 ```json
@@ -326,6 +381,8 @@ echo $result;
 ```
 
 ```javascript
+// make sure you have installed the reques module (npm install request)
+var request = require('request');
 
 request.get('https://shiptheory.com/api/services', {
   headers: {
