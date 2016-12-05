@@ -1,14 +1,11 @@
-title: API Reference
+title: Shiptheory API Documentation
 
 language_tabs:
-  - bash
-  - ruby
-  - python
+  - php
   - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
+  - <a href='https://shiptheory.com'>Register on Shiptheory.com</a>
 
 includes:
   - main
@@ -17,3 +14,4 @@ includes:
 search: true
 
 highlight_theme: monokai
+
