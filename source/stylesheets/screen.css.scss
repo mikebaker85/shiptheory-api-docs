@@ -47,12 +47,7 @@ html, body {
 }
 
 @mixin embossed-bg {
-  background:
-    linear-gradient(to bottom, rgba(#000, 0.2), rgba(#000, 0) 8px),
-    linear-gradient(to top, rgba(#000, 0.2), rgba(#000, 0) 8px),
-    linear-gradient(to bottom, rgba($nav-embossed-border-top, 1), rgba($nav-embossed-border-top, 0) 1.5px),
-    linear-gradient(to top, rgba($nav-embossed-border-bottom, 1), rgba($nav-embossed-border-bottom, 0) 1.5px),
-    $nav-subitem-bg;
+  background: $nav-subitem-bg;
 }
 
 .tocify-wrapper {
@@ -68,7 +63,7 @@ html, body {
   width: $nav-width;
   background-color: $nav-bg;
   font-size: 13px;
-  font-weight: bold;
+  font-weight: none;
 
   // language selector for mobile devices
   .lang-selector {
@@ -81,6 +76,7 @@ html, body {
 
   // This is the logo at the top of the ToC
   &>img {
+    margin:$logo-margin;
     display: block;
     max-width: 100%;
   }
@@ -173,9 +169,10 @@ html, body {
 
   // This is the currently selected ToC entry
   .tocify-focus {
-    box-shadow: 0px 1px 0px $nav-active-shadow;
+    box-shadow: none;
     background-color: $nav-active-bg;
     color: $nav-active-text;
+    font-weight: bold;
   }
 
   // Subheaders are the submenus that slide open
@@ -297,7 +294,7 @@ html, body {
     color: $lang-select-text;
     text-decoration: none;
     padding: 0 10px;
-    line-height: 30px;
+    line-height: 60px;
     outline: 0;
 
     &:active, &:focus {
@@ -358,11 +355,9 @@ html, body {
     font-size: 30px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-    border-bottom: 1px solid #ccc;
     margin-bottom: $h1-margin-bottom;
     margin-top: 2em;
     border-top: 1px solid #ddd;
-    background-image: linear-gradient(to bottom, #fff, #f9f9f9);
   }
 
   h1:first-child, div:first-child + h1 {
@@ -509,9 +504,9 @@ html, body {
     padding: 2px;
     margin: -2px;
     border-radius: 4px;
-    border: 1px solid #F7E633;
-    text-shadow: 1px 1px 0 #666;
-    background: linear-gradient(to top left, #F7E633 0%, #F1D32F 100%);
+    border: 1px solid #28a8e6;
+    background: #28a8e6;
+    color: #fff;
   }
 }
 
@@ -542,7 +537,7 @@ html, body {
     a {
       color: #fff;
       text-decoration: none;
-      border-bottom: dashed 1px #ccc;
+      border-bottom: dashed 1px #28a8e6;
     }
   }
 
@@ -557,7 +552,7 @@ html, body {
       padding: $code-annotation-padding;
       color: #ccc;
       border-top: 1px solid #000;
-      border-bottom: 1px solid #404040;
+      border-bottom: 1px solid #28a8e6;
     }
   }
 }
