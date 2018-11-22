@@ -108,9 +108,9 @@ $data = json_encode(
         "reference" => "S1234",
         "reference2" => "ORDER1001",
         "shipment_detail" => array(
-            "weight" => 1.25,
+            "weight" => 2.5,
             "parcels" => 1,
-            "value" => 150
+            "value" => 135.18
         ),
         "recipient" => array(
             "company" => "Beard Supplies Co",
@@ -126,14 +126,16 @@ $data = json_encode(
             array(
                 "name" => "USS Beard Trimmer 500",
                 "sku" => "ussbeard500",
+                "qty" => 1,
                 "value" => 35.20,
-                "weight" => 25.00
+                "weight" => 0.5
             ),
             array(
                 "name" => "Earl Grey Gift Set",
                 "sku" => "earlgrey",
+                "qty" => 2,
                 "value" => 49.99,
-                "weight" => 10.00
+                "weight" => 1
             )            
         )
     )
@@ -176,9 +178,9 @@ var options = {
       reference: 'S1234',
       reference2: 'ORDER1001',
       shipment_detail: {
-          weight: 1.25,
+          weight: 2.5,
           parcels: 1,
-          value: 150
+          value: 135.18
       },
       recipient: {
           company: 'Beard Supplies Co',
@@ -193,14 +195,16 @@ var options = {
       products: [{
           name: 'USS Beard Trimmer 500',
           sku: 'ussbeard500',
+          qty: 1,
           value: 32.50,
-          weight: 25.00
+          weight: 0.5
       },
       {
           name: 'Earl Grey Gift Set',
           sku: 'earlgrey',
+          qty: 2,
           value: 49.99,
-          weight: 10.00
+          weight: 1
       }]
     }
 };
@@ -240,19 +244,19 @@ Parameter | Required | Description
 --------- | ------- | -----------
 reference | Yes | Your unique reference for this shipment
 reference2 | Yes | A second non-unique reference
-delivery_service | No | The Shiptheory delivery service id. See Delivery Services. If this is not provided or you pass a delivery service that does not exist, the shipment will be subject to any shipping rules setup on your account
+delivery_service | No | The Shiptheory delivery service ID. See Delivery Services. If this is not provided or you pass a delivery service that does not exist, the shipment will be subject to any shipping rules setup on your account
 shipment_detail | |
-weight | Yes | The weight of the shipment in Kilograms to two decimal places
+weight | Yes | The weight of the shipment in kilograms, to two decimal places
 parcels | Yes | The number of boxes or labels as a full number
 value | Yes | The monetary shipment cost to the customer
-enhancement_id | No | Carrier enhancement, only used when passing a delivery_service. See GET Services for ID's
-format_id | No | Carrier format, only used when passing a delivery_service. See GET Services for ID's
+enhancement_id | No | Carrier enhancement, only used when passing a delivery_service. See GET Services for IDs
+format_id | No | Carrier format, only used when passing a delivery_service. See GET Services for IDs
 instructions | No | Delivery instructions
 channel_shipservice_name | No | A description of the shipping option chosen by the customer at order time
 recipient | |
 company | No | The recipient company name
 first name | Yes | First name of the receiver
-last name | Yes | The last name of the receiver
+last name | Yes | Last name of the receiver
 address_line_1 | Yes | Delivery address line 1
 address_line_2 | No | Delivery address line 2
 address_line_3 | No | Delivery address line 3
@@ -266,8 +270,9 @@ email | No | Delivery contact email address
 products | |
 name | Yes | Name of the product being sent
 sku | Yes | SKU of the product being sent
+qty | No | Quantity of the product being sent
 value | Yes | The price of the product to the customer
-weight | Yes | The weight of the product in Kg, 2 decimal places
+weight | Yes | The weight of the product in kilograms, to two decimal places
 commodity_code  | No | UN Commodity Code, used for shipping internationally
 commodity_description | No | Commodity Description, used for shipping internationally
 commodity_manucountry | No | Country of Manufacture, used for shipping internationally
