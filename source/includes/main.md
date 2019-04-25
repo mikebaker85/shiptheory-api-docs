@@ -242,7 +242,7 @@ This endpoint makes it possible for you to add a shipment to Shiptheory and book
 
 Parameter | Required | Description
 --------- | ------- | -----------
-reference | Yes | Your unique reference for this shipment
+reference | Yes | Your unique reference for this shipment. We use this when a carrier needs a unique identifier for your shipment, if this is longer than 25 characters the shipment may be rejected
 reference2 | Yes | A second non-unique reference
 delivery_service | No | The Shiptheory delivery service ID. See Delivery Services. If this is not provided or you pass a delivery service that does not exist, the shipment will be subject to any shipping rules setup on your account
 shipment_detail | |
