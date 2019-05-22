@@ -94,6 +94,21 @@ The authentication bearer token must be included in the header of all subsequent
 
 `Authorization: Bearer asd1AdiJKV1QiLCJhbGciOiJIUzI1NiJ9.dafMTasdsa..`
 
+To request an authentication bearer token, make a POST request, providing your Shiptheory email and password. 
+
+Make sure that the authentication request (and all subsequent requests) provide `application/json` under the `Accept` and `Content-Type` Headers.
+
+### HTTP Request
+
+`POST https://shiptheory.com/api/token`
+
+### Parameters
+
+Parameter | Required | Description
+--------- | -------  | -----------
+email     | Yes      | The email address you use to login to Shiptheory
+password  | Yes      | The password you use to login to Shiptheory
+
 <aside class="notice">
 Authentication tokens <code>expire after 10 minutes</code>.
 </aside>
@@ -120,6 +135,16 @@ $data = json_encode(
             "city" => "Bristol",
             "postcode" => "bs2 3ap",
             "telephone": "01171231234",
+            "country" => "GB"
+        ),
+        "sender" => array(
+            "company" => "Hair Wholesaler Co.",
+            "firstname" => "Julian",
+            "lastname" => "Bashir",
+            "address_line_1" => "65 Horfield Retail Park",
+            "city" => "Bath",
+            "postcode" => "ba1 2jw",
+            "telephone": "0117123111",
             "country" => "GB"
         ),
         "products" => array(
@@ -190,6 +215,16 @@ var options = {
           city: 'Bristol',
           postcode: 'BS2 3AP',
           telephone: '01161231245',
+          country: 'GB'
+      },
+      sender: {
+          company: 'Hair Wholersaler Co.',
+          firstname: 'Julian',
+          lastname: 'Bashir',
+          address_line_1: '65 Horfield Retail Park',
+          city: 'Bath',
+          postcode: 'BA1 2JW',
+          telephone: '01161231211',
           country: 'GB'
       },
       products: [{
@@ -267,6 +302,20 @@ postcode | Yes | The delivery postal or zip code
 telephone | No | Delivery contact telephone number
 mobile | No | Delivery contact mobile number
 email | No | Delivery contact email address
+sender | | If not sent, defaults to your default shipping location
+company | No | The sender company name
+first name | Cond. | First name of the sender
+last name | Cond. | Last name of the sender
+address_line_1 | Yes | Sender address line 1
+address_line_2 | No | Sender address line 2
+address_line_3 | No | Sender address line 3
+city | Cond. | Sender city
+county | No | Sender county or state
+country | Cond. | 2 character sender country ISO code
+postcode | Cond. | The sender postal or zip code
+telephone | No | Sender contact telephone number
+mobile | No | Sender contact mobile number
+email | No | Sender contact email address
 products | |
 name | Yes | Name of the product being sent
 sku | Yes | SKU of the product being sent
@@ -276,6 +325,10 @@ weight | Yes | The weight of the product in kilograms, to two decimal places
 commodity_code  | No | UN Commodity Code, used for shipping internationally
 commodity_description | No | Commodity Description, used for shipping internationally
 commodity_manucountry | No | Country of Manufacture, used for shipping internationally
+
+<aside class="notice">
+If you do not send a Senders address, the default shipping location from your Shiptheory account will be used.
+</aside>
 
 <aside class="success">
 Product data allows Shiptheory to provide greater Shipping Rule accuracy
