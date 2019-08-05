@@ -441,6 +441,13 @@ message | Activity reported by Shiptheory
 created | Datetime of activity
 type | Type of activity. Error, Info or Success
 
+
+## Attaching Return Labels
+
+If you have Returns Labels specified on your shipping rules and you do not pass the `delivery_service` parameter when making a `book` request, subsequent requests to `Get Details` will include successful Returns Labels in the PDF `label` binary string.
+
+Currently, limited carriers support Returns within Shiptheory. See our list of <a href="http://support.shiptheory.com/support/solutions/articles/24000045115" target="_blank">Supported Returns Carriers</a> for more information.
+
 # Delivery Services
 
 ## Outgoing Services
