@@ -443,6 +443,8 @@ type | Type of activity. Error, Info or Success
 
 # Delivery Services
 
+## Outgoing Services
+
 ```php
 $ch = curl_init('https://shiptheory.com/api/services');
 
@@ -497,6 +499,9 @@ request.get('https://shiptheory.com/api/services', {
 }
 ```
 
+
+Performing a GET on `/services` returns a list of outgoing delivery services available on your Shiptheory account.
+
 When booking a shipment, if you pass a ``delivery_service`` your shipment will skip shipping rules and book the shipment with the carrier that owns the specified delivery service.
 
 The ``delivery_service`` field relates directly to the ``id`` of the Delivery Service in Shiptheory. You can get a list of the Delivery Services available to your Shiptheory account by calling the Services API endpoint.
@@ -504,3 +509,70 @@ The ``delivery_service`` field relates directly to the ``id`` of the Delivery Se
 ### HTTP Request
 
 `GET https://shiptheory.com/api/services`
+
+## Incoming Services (Returns)
+
+
+```php
+$ch = curl_init('https://shiptheory.com/api/services/incoming');
+
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Authorization: bearer asd1AdiJKV1QiLCJhbGciOiJIUzI1NiJ9.dafMTasdsa..',
+    'Accept: application/json'
+));
+
+$result = curl_exec($ch);
+curl_close($ch);
+
+echo $result;
+```
+
+```javascript
+// make sure you have installed the reques module (npm install request)
+var request = require('request');
+
+request.get('https://shiptheory.com/api/services/incoming', {
+  headers: {
+    'Accept': 'application/json'
+  },
+  auth: {
+    'bearer': 'eyJ0eXAiO....'
+  }
+}, function optionalCallback(err, httpResponse, body) {
+  if (err) {
+    return console.error('Request Failed:', err);
+  }
+  console.log(body);
+});
+```
+
+> The above code returns JSON structured like this:
+
+```json
+{
+	"return_services": {
+		"Royal Mail": [
+			{
+				"name": "Tracked 48 Returns",
+				"code": "TSS"
+			},
+			{
+				"name": "Tracked 24 Returns",
+				"code": "TSN"
+			}
+		],
+		"InPost": [
+			{
+				"name": "InPost Medium Locker Return",
+				"code": "B"
+			}
+		]
+	}
+}
+```
+
+
+Performing a GET on `/services/incoming` returns a list of incoming (return) delivery services available on your Shiptheory account.
+
+The format of incoming services looks a little different to that of outgoing services.
