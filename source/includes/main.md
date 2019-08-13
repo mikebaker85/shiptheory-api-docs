@@ -253,6 +253,7 @@ enhancement_id | No | Carrier enhancement, only used when passing a delivery_ser
 format_id | No | Carrier format, only used when passing a delivery_service. See GET Services for IDs
 instructions | No | Delivery instructions
 channel_shipservice_name | No | A description of the shipping option chosen by the customer at order time
+currency_code | No | Specify the currency that this order has been paid in, must be a 3 letter currency code
 recipient | |
 company | No | The recipient company name
 first name | Yes | First name of the receiver
