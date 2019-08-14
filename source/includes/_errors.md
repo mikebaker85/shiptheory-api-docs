@@ -15,3 +15,21 @@ Error Code | Meaning
 429 | Too Many Requests -- You're requesting too many shipments! Slow down!
 500 | Internal Server Error -- We had a problem with our server. Try again later.
 503 | Service Unavailable -- We're temporarially offline for maintanance. Please try again later.
+
+# Getting Help
+
+If you need help, you can [email support](https://shiptheory.com/support). Make sure to include your Shiptheory email address and complete HTTP request along with headers and full body.
+
+It is important to note that live chat and telephone support will not be able to assist with API related questions, a ticket will need to be opened by following the instructions above.
+
+
+
+
+
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+
+
+
+
+-

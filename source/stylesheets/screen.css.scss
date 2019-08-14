@@ -64,6 +64,7 @@ html, body {
   background-color: $nav-bg;
   font-size: 13px;
   font-weight: none;
+  border-right: 2px dashed $nav-footer-border-color;
 
   // language selector for mobile devices
   .lang-selector {

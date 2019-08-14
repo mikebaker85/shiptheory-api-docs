@@ -94,6 +94,21 @@ The authentication bearer token must be included in the header of all subsequent
 
 `Authorization: Bearer asd1AdiJKV1QiLCJhbGciOiJIUzI1NiJ9.dafMTasdsa..`
 
+To request an authentication bearer token, make a POST request, providing your Shiptheory email and password. 
+
+Make sure that the authentication request (and all subsequent requests) provide `application/json` under the `Accept` and `Content-Type` Headers.
+
+### HTTP Request
+
+`POST https://shiptheory.com/api/token`
+
+### Parameters
+
+Parameter | Required | Description
+--------- | -------  | -----------
+email     | Yes      | The email address you use to login to Shiptheory
+password  | Yes      | The password you use to login to Shiptheory
+
 <aside class="notice">
 Authentication tokens <code>expire after 10 minutes</code>.
 </aside>
@@ -120,6 +135,16 @@ $data = json_encode(
             "city" => "Bristol",
             "postcode" => "bs2 3ap",
             "telephone": "01171231234",
+            "country" => "GB"
+        ),
+        "sender" => array(
+            "company" => "Hair Wholesaler Co.",
+            "firstname" => "Julian",
+            "lastname" => "Bashir",
+            "address_line_1" => "65 Horfield Retail Park",
+            "city" => "Bath",
+            "postcode" => "ba1 2jw",
+            "telephone": "0117123111",
             "country" => "GB"
         ),
         "products" => array(
@@ -190,6 +215,16 @@ var options = {
           city: 'Bristol',
           postcode: 'BS2 3AP',
           telephone: '01161231245',
+          country: 'GB'
+      },
+      sender: {
+          company: 'Hair Wholersaler Co.',
+          firstname: 'Julian',
+          lastname: 'Bashir',
+          address_line_1: '65 Horfield Retail Park',
+          city: 'Bath',
+          postcode: 'BA1 2JW',
+          telephone: '01161231211',
           country: 'GB'
       },
       products: [{
@@ -268,6 +303,20 @@ postcode | Yes | The delivery postal or zip code
 telephone | No | Delivery contact telephone number
 mobile | No | Delivery contact mobile number
 email | No | Delivery contact email address
+sender | | If not sent, defaults to your default shipping location
+company | No | The sender company name
+first name | Cond. | First name of the sender
+last name | Cond. | Last name of the sender
+address_line_1 | Yes | Sender address line 1
+address_line_2 | No | Sender address line 2
+address_line_3 | No | Sender address line 3
+city | Cond. | Sender city
+county | No | Sender county or state
+country | Cond. | 2 character sender country ISO code
+postcode | Cond. | The sender postal or zip code
+telephone | No | Sender contact telephone number
+mobile | No | Sender contact mobile number
+email | No | Sender contact email address
 products | |
 name | Yes | Name of the product being sent
 sku | Yes | SKU of the product being sent
@@ -277,6 +326,10 @@ weight | Yes | The weight of the product in kilograms, to two decimal places
 commodity_code  | No | UN Commodity Code, used for shipping internationally
 commodity_description | No | Commodity Description, used for shipping internationally
 commodity_manucountry | No | Country of Manufacture, used for shipping internationally
+
+<aside class="notice">
+If you do not send a Senders address, the default shipping location from your Shiptheory account will be used.
+</aside>
 
 <aside class="success">
 Product data allows Shiptheory to provide greater Shipping Rule accuracy
@@ -389,7 +442,16 @@ message | Activity reported by Shiptheory
 created | Datetime of activity
 type | Type of activity. Error, Info or Success
 
+
+## Attaching Return Labels
+
+If you have Returns Labels specified on your shipping rules and you do not pass the `delivery_service` parameter when making a `book` request, subsequent requests to `Get Details` will include successful Returns Labels in the PDF `label` binary string.
+
+Currently, limited carriers support Returns within Shiptheory. See our list of <a href="http://support.shiptheory.com/support/solutions/articles/24000045115" target="_blank">Supported Returns Carriers</a> for more information.
+
 # Delivery Services
+
+## Outgoing Services
 
 ```php
 $ch = curl_init('https://shiptheory.com/api/services');
@@ -445,6 +507,9 @@ request.get('https://shiptheory.com/api/services', {
 }
 ```
 
+
+Performing a GET on `/services` returns a list of outgoing delivery services available on your Shiptheory account.
+
 When booking a shipment, if you pass a ``delivery_service`` your shipment will skip shipping rules and book the shipment with the carrier that owns the specified delivery service.
 
 The ``delivery_service`` field relates directly to the ``id`` of the Delivery Service in Shiptheory. You can get a list of the Delivery Services available to your Shiptheory account by calling the Services API endpoint.
@@ -452,3 +517,70 @@ The ``delivery_service`` field relates directly to the ``id`` of the Delivery Se
 ### HTTP Request
 
 `GET https://shiptheory.com/api/services`
+
+## Incoming Services (Returns)
+
+
+```php
+$ch = curl_init('https://shiptheory.com/api/services/incoming');
+
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Authorization: bearer asd1AdiJKV1QiLCJhbGciOiJIUzI1NiJ9.dafMTasdsa..',
+    'Accept: application/json'
+));
+
+$result = curl_exec($ch);
+curl_close($ch);
+
+echo $result;
+```
+
+```javascript
+// make sure you have installed the reques module (npm install request)
+var request = require('request');
+
+request.get('https://shiptheory.com/api/services/incoming', {
+  headers: {
+    'Accept': 'application/json'
+  },
+  auth: {
+    'bearer': 'eyJ0eXAiO....'
+  }
+}, function optionalCallback(err, httpResponse, body) {
+  if (err) {
+    return console.error('Request Failed:', err);
+  }
+  console.log(body);
+});
+```
+
+> The above code returns JSON structured like this:
+
+```json
+{
+	"return_services": {
+		"Royal Mail": [
+			{
+				"name": "Tracked 48 Returns",
+				"code": "TSS"
+			},
+			{
+				"name": "Tracked 24 Returns",
+				"code": "TSN"
+			}
+		],
+		"InPost": [
+			{
+				"name": "InPost Medium Locker Return",
+				"code": "B"
+			}
+		]
+	}
+}
+```
+
+
+Performing a GET on `/services/incoming` returns a list of incoming (return) delivery services available on your Shiptheory account.
+
+The format of incoming services looks a little different to that of outgoing services.
