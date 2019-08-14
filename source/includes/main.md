@@ -277,7 +277,7 @@ This endpoint makes it possible for you to add a shipment to Shiptheory and book
 
 Parameter | Required | Description
 --------- | ------- | -----------
-reference | Yes | Your unique reference for this shipment
+reference | Yes | Your unique reference for this shipment. We use this when a carrier needs a unique identifier for your shipment, if this is longer than 25 characters the shipment may be rejected
 reference2 | Yes | A second non-unique reference
 delivery_service | No | The Shiptheory delivery service ID. See Delivery Services. If this is not provided or you pass a delivery service that does not exist, the shipment will be subject to any shipping rules setup on your account
 shipment_detail | |
@@ -288,6 +288,7 @@ enhancement_id | No | Carrier enhancement, only used when passing a delivery_ser
 format_id | No | Carrier format, only used when passing a delivery_service. See GET Services for IDs
 instructions | No | Delivery instructions
 channel_shipservice_name | No | A description of the shipping option chosen by the customer at order time
+currency_code | No | Specify the currency that this order has been paid in, must be a 3 letter currency code
 recipient | |
 company | No | The recipient company name
 first name | Yes | First name of the receiver
