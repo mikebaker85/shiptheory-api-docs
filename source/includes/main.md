@@ -26,6 +26,29 @@ We have published a collection of Shiptheory API test calls on Postman that may 
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/12b536df2bbb90822086)
 
+## Partner Tag
+
+If you are developing an application that will be used by more than 1 company, or an application that you intend to distribute in anyway, you must include the `Shiptheory-Partner-Tag` http request header in **all** of your requests.
+
+```php
+[
+    'Accept: application/json',
+    'Content-Type: application/json',
+    'Content-Length: ' . strlen($data)),
+	'Shiptheory-Partner-Tag: ExamplePartner1'
+];
+```
+
+```javascript
+  headers: {
+    'Accept': 'application/json',
+    'Shiptheory-Partner-Tag': 'ExamplePartner1'
+  },
+```
+
+Please contact Shiptheory support to obtain a partner tag. There is no charge for this, tags are used to provide better support to customers and partners.
+
+
 # Authentication
 
 > To obtain an authentication token:
@@ -56,7 +79,7 @@ echo $result;
 ```
 
 ```javascript
-// make sure you have installed the reques module (npm install request)
+// make sure you have installed the request module (npm install request)
 var request = require('request');
 
 var options = {
@@ -110,7 +133,7 @@ email     | Yes      | The email address you use to login to Shiptheory
 password  | Yes      | The password you use to login to Shiptheory
 
 <aside class="notice">
-Authentication tokens <code>expire after 10 minutes</code>.
+Authentication tokens <code>expire after 60 minutes</code>.
 </aside>
 
 # Shipment
@@ -187,7 +210,7 @@ echo $result;
 ```
 
 ```javascript
-// make sure you have installed the reques module (npm install request)
+// make sure you have installed the request module (npm install request)
 var request = require('request');
 
 var options = {
@@ -355,7 +378,7 @@ echo $result;
 ```
 
 ```javascript
-// make sure you have installed the reques module (npm install request)
+// make sure you have installed the request module (npm install request)
 var request = require('request');
 
 request.get('https://shiptheory.com/api/shipments/S1234', {
@@ -443,11 +466,134 @@ created | Datetime of activity
 type | Type of activity. Error, Info or Success
 
 
-## Attaching Return Labels
+# Return Labels
 
-If you have Returns Labels specified on your shipping rules and you do not pass the `delivery_service` parameter when making a `book` request, subsequent requests to `Get Details` will include successful Returns Labels in the PDF `label` binary string.
+Currently, limited carriers support Returns within Shiptheory. 
 
-Currently, limited carriers support Returns within Shiptheory. See our list of <a href="http://support.shiptheory.com/support/solutions/articles/24000045115" target="_blank">Supported Returns Carriers</a> for more information.
+See our list of <a href="http://support.shiptheory.com/support/solutions/articles/24000045115" target="_blank">Supported Returns Carriers</a> for more information.
+
+## Automatic Shipping Rules
+
+If you would like to generate Returns Labels automatically to put into your outgoing parcels, you can add return services to your shipping rules.
+
+![alt text](/images/rules_return_example.png)
+
+Once you have set this, not passing the `delivery_service` parameter when making a `book` request and subsequent requests to `Get Details` will include the Returns Labels specified in your shipping rule within the PDF `label` binary string.
+
+## Creating a Return Label
+
+This method allows you to create a return label from an existing shipment. All of the address, order and product data will be taken automatically from the existing shipment.
+
+To make this call, you need to know the `Reference` and outgoing `Postcode` on the original shipment. 
+
+A label and return tracking number will be returned, or an error message. While messages and errors are stored in the shipment history, the label will not be stored against the shipment, so you should save the label returned from the API. Subsequent calls to create a return label will produce a new label.
+
+```php
+$data = json_encode(
+    array(
+        "outgoing_reference" => "S0001001",
+        "delivery_postcode" => "BS1 4TW",
+        "return_service" => 200,
+        "expiry" => "2019-10-23"
+    )
+);
+
+$ch = curl_init('https://shiptheory.com/api/returns');
+
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Accept: application/json',
+    'Content-Type: application/json',
+    'Authorization: Bearer AasLK190ALhaLDSj1nal92Ja...',
+    'Content-Length: ' . strlen($data))
+);
+
+$result = curl_exec($ch);
+curl_close($ch);
+
+echo $result;
+
+```
+
+```javascript
+// make sure you have installed the request module (npm install request)
+var request = require('request');
+
+var options = {
+  url: 'https://shiptheory.com/api/returns',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
+  auth: {
+    'bearer': 'eyJ0eXAiOiJKV1Q...'
+  },
+  form: {
+      outgoing_reference: 'S0001001',
+      delivery_postcode: 'BS1 4TW',
+      return_service: '200',
+      expiry: '2019-10-23'
+    }
+};
+
+request.post(options, function optionalCallback(err, httpResponse, body) {
+  if (err) {
+    return console.error('Request Failed:', err);
+  }
+  console.log(body);
+});
+```
+
+> A successful request will return JSON structured like this:
+
+```json
+{
+  "tracking": "ST123456789X",
+  "label": "JVBERi0xLjQKMyAwIG9iago8PC9UeXBlIC9QYWdlCi9QYXJlbnQgMSAwIFIKL01lZG5ID..."
+}
+```
+
+> An unsuccessful request will return JSON structured like this:
+
+```json
+{
+   "error": {
+      "expiry": {
+         "expiry_length": "Your returns label expiry is not allowed. The label must expire within 30 days"
+         }
+      }
+}
+```
+
+> Or
+
+```
+{
+   "error": "Unable to find a shipment with the reference 'ST0000040' and postcode 'bs1 x2w'"
+}
+```
+
+### HTTP Request
+
+`POST https://shiptheory.com/api/shipments`
+
+### Parameters
+
+Parameter | Required | Description
+--------- | ------- | -----------
+outgoing_reference | Yes | The unique reference on the shipment. See <a href="#book">Book Shipment</a>.
+delivery_postcode | Yes | A original outgoing postcode/zip code on the shipment
+return_service | Yes | The return service `id`. See <a href="#incoming-services-returns-">GET Incoming Services</a>.
+expiry | Yes | YYYY-MM-DD. The date the returns label expires and can no longer be used. Maximum 30 days into the future.
+
+## Headless Returns
+
+If you would like to create returns labels that are not attached to any existing shipment in Shiptheory, please contact support.
+
 
 # Delivery Services
 
@@ -469,7 +615,7 @@ echo $result;
 ```
 
 ```javascript
-// make sure you have installed the reques module (npm install request)
+// make sure you have installed the request module (npm install request)
 var request = require('request');
 
 request.get('https://shiptheory.com/api/services', {
@@ -537,7 +683,7 @@ echo $result;
 ```
 
 ```javascript
-// make sure you have installed the reques module (npm install request)
+// make sure you have installed the request module (npm install request)
 var request = require('request');
 
 request.get('https://shiptheory.com/api/services/incoming', {
@@ -563,17 +709,17 @@ request.get('https://shiptheory.com/api/services/incoming', {
 		"Royal Mail": [
 			{
 				"name": "Tracked 48 Returns",
-				"code": "TSS"
+				"id": 100
 			},
 			{
 				"name": "Tracked 24 Returns",
-				"code": "TSN"
+				"id": 200
 			}
 		],
 		"InPost": [
 			{
 				"name": "InPost Medium Locker Return",
-				"code": "B"
+				"id": 300
 			}
 		]
 	}
@@ -584,3 +730,9 @@ request.get('https://shiptheory.com/api/services/incoming', {
 Performing a GET on `/services/incoming` returns a list of incoming (return) delivery services available on your Shiptheory account.
 
 The format of incoming services looks a little different to that of outgoing services.
+
+The `id` field is what you need to pass in the `return_service` field when making Return Label POST request.
+
+### HTTP Request
+
+`GET https://shiptheory.com/api/services/incoming`
