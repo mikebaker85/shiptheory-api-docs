@@ -358,7 +358,7 @@ If you do not send a Senders address, the default shipping location from your Sh
 Product data allows Shiptheory to provide greater Shipping Rule accuracy
 </aside>
 
-## Get Details
+## Get Shipment (Previously Details)
 
 ```php
 $reference = 12345;
@@ -464,6 +464,255 @@ messages | |
 message | Activity reported by Shiptheory
 created | Datetime of activity
 type | Type of activity. Error, Info or Success
+
+
+## Search Shipments
+
+```php
+/*
+ * The below example query searches for all shipments with a delivery postcode of "ba1 2wa"
+ * created in September 2019, with a status of Failed
+ */
+$query = "created_to=2019-09-01&created_from=2019-09-30&DeliveryAddress.postcode=ba1 2wa&status=Failed&include_products=1";
+
+$ch = curl_init('https://shiptheory.com/api/shipments/search?'.$query);
+
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Authorization: bearer asd1AdiJKV1QiLCJhbGciOiJIUzI1NiJ9.dafMTasdsa..',
+    'Accept: application/json'
+));
+
+$result = curl_exec($ch);
+curl_close($ch);
+
+echo $result;
+```
+
+> The above code returns JSON structured like this:
+
+```json
+{
+	"shipments": [
+		{
+			"created": "2019-09-20T13:39:54+0000",
+			"modified": "2019-09-20T13:39:54+0000",
+			"channel_reference_id": "ST0000069",
+			"channel_reference_id_2": "ST0000064",
+			"channel_name": "Manual",
+			"status": "Failed",
+			"courier": {
+				"couriername": "Parcelforce"
+			},
+			"courierservice": {
+				"id": 24,
+				"serviceName": "express48"
+			},
+			"shipment_detail": {
+				"tracking_number": null,
+				"weight": 0.5,
+				"value": 1,
+				"parcels": 1,
+				"width": null,
+				"height": null,
+				"depth": null
+			},
+			"delivery_address": {
+				"company": "Shiptheory",
+				"address_line_1": "20, Berkeley House",
+				"address_line_2": "Charlotte Street",
+				"address_line_3": null,
+				"city": "Bristol",
+				"county": "Somerset",
+				"postcode": "BA1 2WA",
+				"telephone": "0776666666",
+				"mobile": "",
+				"email": "test@test1.com",
+				"firstname": "Peter",
+				"lastname": "Pan",
+				"country": {
+					"country": "United Kingdom",
+					"code": "GBR"
+				}
+			},
+			"products": [
+				{
+					"qty": 2,
+					"sku": "15grammer",
+					"name": "15 gram product",
+					"value": "1.00",
+					"weight": "0.02",
+					"length": "25",
+					"width": "25",
+					"height": "25",
+					"commodity_description": null,
+					"commodity_code": null,
+					"commodity_manucountry": null,
+					"commodity_composition": null
+				},
+				{
+					"qty": 20,
+					"sku": "cap1",
+					"name": "Baseball Cap",
+					"value": "4.00",
+					"weight": "11.00",
+					"length": "0",
+					"width": "0",
+					"height": "0",
+					"commodity_description": null,
+					"commodity_code": null,
+					"commodity_manucountry": null,
+					"commodity_composition": null
+				}
+			],
+			"latest_public_reference": null
+		},
+		{
+			"created": "2019-09-20T13:39:51+0000",
+			"modified": "2019-09-20T13:39:51+0000",
+			"channel_reference_id": "ST0000068",
+			"channel_reference_id_2": "ST0000064",
+			"channel_name": "Magento",
+			"status": "Failed",
+			"courier": {
+				"couriername": "FedEx"
+			},
+			"courierservice": null,
+			"shipment_detail": {
+				"tracking_number": null,
+				"weight": 0.5,
+				"value": 1,
+				"parcels": 1,
+				"width": null,
+				"height": null,
+				"depth": null
+			},
+			"delivery_address": {
+				"company": "Shiptheory",
+				"address_line_1": "20, Berkeley House",
+				"address_line_2": "Charlotte Street",
+				"address_line_3": null,
+				"city": "Bristol",
+				"county": "Somerset",
+				"postcode": "BA1 2WA",
+				"telephone": "0776666666",
+				"mobile": "",
+				"email": "test@test1.com",
+				"firstname": "Peter",
+				"lastname": "Pan",
+				"country": {
+					"country": "United Kingdom",
+					"code": "GBR"
+				}
+			},
+			"products": [
+				{
+					"qty": 2,
+					"sku": "15grammer",
+					"name": "15 gram product",
+					"value": "1.00",
+					"weight": "0.02",
+					"length": "25",
+					"width": "25",
+					"height": "25",
+					"commodity_description": null,
+					"commodity_code": null,
+					"commodity_manucountry": null,
+					"commodity_composition": null
+				},
+				{
+					"qty": 20,
+					"sku": "cap1",
+					"name": "Baseball Cap",
+					"value": "4.00",
+					"weight": "11.00",
+					"length": "0",
+					"width": "0",
+					"height": "0",
+					"commodity_description": null,
+					"commodity_code": null,
+					"commodity_manucountry": null,
+					"commodity_composition": null
+				}
+			],
+			"latest_public_reference": null
+		},
+		{
+			"created": "2019-09-20T13:38:23+0000",
+			"modified": "2019-09-20T13:38:23+0000",
+			"channel_reference_id": "ST0000063",
+			"channel_reference_id_2": "ST0000063",
+			"channel_name": "TradeGecko",
+			"status": "Failed",
+			"courier": null,
+			"courierservice": null,
+			"shipment_detail": {
+				"tracking_number": null,
+				"weight": 0,
+				"value": 1,
+				"parcels": 1,
+				"width": null,
+				"height": null,
+				"depth": null
+			},
+			"delivery_address": {
+				"company": "Shiptheory",
+				"address_line_1": "20, Berkeley House",
+				"address_line_2": "Charlotte Street",
+				"address_line_3": null,
+				"city": "Bristol",
+				"county": "Somerset",
+				"postcode": "BA1 2WA",
+				"telephone": "0776666666",
+				"mobile": "",
+				"email": "test@test1.com",
+				"firstname": "Peter",
+				"lastname": "Pan",
+				"country": {
+					"country": "United Kingdom",
+					"code": "GBR"
+				}
+			},
+			"products": [],
+			"latest_public_reference": null
+		}
+	]
+}
+```
+
+This endpoints makes it possible to search shipments in a Shiptheory account by specifying a number of GET parameters, documented below.
+
+### HTTP Request
+
+`GET https://shiptheory.com/api/shipments/search`
+
+### Parameters
+
+Parameter | Required | Description
+--------- | -------- | -----------
+created_from | Yes | YYYY-MM-DD. Date range start date. This is the shipment created date (the date the shipment was received by Shiptheory)
+created_to | Yes | YYYY-MM-DD. Date range end date. This is the shipment created date (the date the shipment was received by Shiptheory). Max date range is 31 days
+include_products | No | If set to "1", shipment product data will be attached to the response
+status | No | Options: *'Failed', 'Complete', 'Ready', 'Ignored', 'Not Ready', 'Print Error', 'Waiting', 'PROCESSING'*. Case sensitive. <a href="http://support.shiptheory.com/support/solutions/articles/12400-shiptheory-statuses-explained" target="_blank">Shiptheory Statuses Explained</a>.
+channel_name | No | The name of the sales channel in Shiptheory. For example: *Magento*. 
+channel_reference_id | No | Unique reference from the sales channel used when creating the shipment. This is usually the Shipment ID
+channel_reference_id_2 | No | A second sales channel reference. Usually Order ID
+ShipmentDetails.parcels | No | The number of *boxes* on a shipment
+ShipmentDetails.weight | No | The weight of the shipment
+ShipmentDetails.value | No | The monetary value of the shipment
+Couriers.couriername | No | Case sensitive carrier name. You can get valid carrier names from the <A href="https://shiptheory.com/developer/index.html#outgoing-services" target="_blank">GET Services Method</a>
+Countries.code | No | 3 Character country ISO code
+DeliveryAddress.address_line_1 | No | Delivery Address Line 1
+DeliveryAddress.address_line_2 | No | Delivery Address Line 2
+DeliveryAddress.address_line_3 | No | Delivery Address Line 3
+DeliveryAddress.city | No | Delivery City
+DeliveryAddress.county | No | Delivery County/State
+DeliveryAddress.postcode | No | Delivery Postcode/Zipcode
+DeliveryAddress.telephone | No | Delivery Telephone Number 
+DeliveryAddress.email | No | Delivery Email Address
+DeliveryAddress.company | No | Delivery Company Name
+DeliveryAddress.firstname | No | Delivery First Name 
+DeliveryAddress.lastname | No | Delivery Surname
 
 
 # Return Labels
