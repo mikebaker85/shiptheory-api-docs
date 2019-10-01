@@ -473,7 +473,7 @@ type | Type of activity. Error, Info or Success
  * The below example query searches for all shipments with a delivery postcode of "ba1 2wa"
  * created in September 2019, with a status of Failed
  */
-$query = "created_to=2019-09-01&created_from=2019-09-30&DeliveryAddress.postcode=ba1 2wa&status=Failed&include_products=1";
+$query = "created_from=2019-09-01&created_to=2019-09-30&DeliveryAddress.postcode=ba1 2wa&status=Failed&include_products=1";
 
 $ch = curl_init('https://shiptheory.com/api/shipments/search?'.$query);
 
