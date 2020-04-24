@@ -61,7 +61,7 @@ $data = json_encode(
     )
 );
 
-$ch = curl_init('https://shiptheory.com/api/token');
+$ch = curl_init('https://api.shiptheory/v1/token');
 
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -83,7 +83,7 @@ echo $result;
 var request = require('request');
 
 var options = {
-  url: 'https://shiptheory.com/api/token',
+  url: 'https://api.shiptheory/v1/token',
   headers: {
     'Accept': 'application/json'
   },
@@ -123,7 +123,7 @@ Make sure that the authentication request (and all subsequent requests) provide 
 
 ### HTTP Request
 
-`POST https://shiptheory.com/api/token`
+`POST https://api.shiptheory/v1/token`
 
 ### Parameters
 
@@ -189,7 +189,7 @@ $data = json_encode(
     )
 );
 
-$ch = curl_init('https://shiptheory.com/api/shipments');
+$ch = curl_init('https://api.shiptheory/v1/shipments');
 
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -214,7 +214,7 @@ echo $result;
 var request = require('request');
 
 var options = {
-  url: 'https://shiptheory.com/api/shipments',
+  url: 'https://api.shiptheory/v1/shipments',
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
@@ -294,7 +294,7 @@ This endpoint makes it possible for you to add a shipment to Shiptheory and book
 
 ### HTTP Request
 
-`POST https://shiptheory.com/api/shipments`
+`POST https://api.shiptheory/v1/shipments`
 
 ### Parameters
 
@@ -304,7 +304,7 @@ reference | Yes | Your unique reference for this shipment. We use this when a ca
 reference2 | Yes | A second non-unique reference
 delivery_service | No | The Shiptheory delivery service ID. See Delivery Services. If this is not provided or you pass a delivery service that does not exist, the shipment will be subject to any shipping rules setup on your account
 shipment_detail | |
-weight | Yes | The weight of the shipment in kilograms, to two decimal places
+weight | Yes | The weight of the shipment in kilograms, to three decimal places
 parcels | Yes | The number of boxes or labels as a full number
 value | Yes | The monetary shipment cost to the customer
 enhancement_id | No | Carrier enhancement, only used when passing a delivery_service. See GET Services for IDs
@@ -345,7 +345,7 @@ name | Yes | Name of the product being sent
 sku | Yes | SKU of the product being sent
 qty | No | Quantity of the product being sent
 value | Yes | The price of the product to the customer
-weight | Yes | The weight of the product in kilograms, to two decimal places
+weight | Yes | The weight of the product in kilograms, to three decimal places
 commodity_code  | No | UN Commodity Code, used for shipping internationally
 commodity_description | No | Commodity Description, used for shipping internationally
 commodity_manucountry | No | Country of Manufacture, used for shipping internationally
@@ -363,7 +363,7 @@ Product data allows Shiptheory to provide greater Shipping Rule accuracy
 ```php
 $reference = 12345;
 
-$ch = curl_init('https://shiptheory.com/api/shipments/'.$reference);
+$ch = curl_init('https://api.shiptheory/v1/shipments/'.$reference);
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -381,7 +381,7 @@ echo $result;
 // make sure you have installed the request module (npm install request)
 var request = require('request');
 
-request.get('https://shiptheory.com/api/shipments/S1234', {
+request.get('https://api.shiptheory/v1/shipments/S1234', {
   headers: {
     'Accept': 'application/json'
   },
@@ -439,7 +439,7 @@ This endpoint retrieves the status, created and last modified datetime, tracking
 
 ### HTTP Request
 
-`GET https://shiptheory.com/api/shipments/<REFERENCE>`
+`GET https://api.shiptheory/v1/shipments/<REFERENCE>`
 
 ### URL Parameters
 
@@ -475,7 +475,7 @@ type | Type of activity. Error, Info or Success
  */
 $query = "created_from=2019-09-01&created_to=2019-09-30&DeliveryAddress.postcode=ba1 2wa&status=Failed&include_products=1";
 
-$ch = curl_init('https://shiptheory.com/api/shipments/search?'.$query);
+$ch = curl_init('https://api.shiptheory/v1/shipments/search?'.$query);
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -684,7 +684,7 @@ This endpoints makes it possible to search shipments in a Shiptheory account by 
 
 ### HTTP Request
 
-`GET https://shiptheory.com/api/shipments/search`
+`GET https://api.shiptheory/v1/shipments/search`
 
 ### Parameters
 
@@ -738,6 +738,8 @@ To make this call, you need to know the `Reference` and outgoing `Postcode` on t
 
 A label and return tracking number will be returned, or an error message. While messages and errors are stored in the shipment history, the label will not be stored against the shipment, so you should save the label returned from the API. Subsequent calls to create a return label will produce a new label.
 
+Please note: Any other data sent with this request will be ignored. If you need to change shipment data on the return label, you should create a Headless Return label.
+
 ```php
 $data = json_encode(
     array(
@@ -748,7 +750,7 @@ $data = json_encode(
     )
 );
 
-$ch = curl_init('https://shiptheory.com/api/returns');
+$ch = curl_init('https://api.shiptheory/v1/returns');
 
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -774,7 +776,7 @@ echo $result;
 var request = require('request');
 
 var options = {
-  url: 'https://shiptheory.com/api/returns',
+  url: 'https://api.shiptheory/v1/returns',
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
@@ -829,7 +831,7 @@ request.post(options, function optionalCallback(err, httpResponse, body) {
 
 ### HTTP Request
 
-`POST https://shiptheory.com/api/shipments`
+`POST https://api.shiptheory/v1/returns`
 
 ### Parameters
 
@@ -850,7 +852,7 @@ If you would like to create returns labels that are not attached to any existing
 ## Outgoing Services
 
 ```php
-$ch = curl_init('https://shiptheory.com/api/services');
+$ch = curl_init('https://api.shiptheory/v1/services');
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -868,7 +870,7 @@ echo $result;
 // make sure you have installed the request module (npm install request)
 var request = require('request');
 
-request.get('https://shiptheory.com/api/services', {
+request.get('https://api.shiptheory/v1/services', {
   headers: {
     'Accept': 'application/json'
   },
@@ -912,13 +914,13 @@ The ``delivery_service`` field relates directly to the ``id`` of the Delivery Se
 
 ### HTTP Request
 
-`GET https://shiptheory.com/api/services`
+`GET https://api.shiptheory/v1/services`
 
 ## Incoming Services (Returns)
 
 
 ```php
-$ch = curl_init('https://shiptheory.com/api/services/incoming');
+$ch = curl_init('https://api.shiptheory/v1/services/incoming');
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -936,7 +938,7 @@ echo $result;
 // make sure you have installed the request module (npm install request)
 var request = require('request');
 
-request.get('https://shiptheory.com/api/services/incoming', {
+request.get('https://api.shiptheory/v1/services/incoming', {
   headers: {
     'Accept': 'application/json'
   },
@@ -985,4 +987,4 @@ The `id` field is what you need to pass in the `return_service` field when makin
 
 ### HTTP Request
 
-`GET https://shiptheory.com/api/services/incoming`
+`GET https://api.shiptheory/v1/services/incoming`
