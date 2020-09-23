@@ -303,6 +303,7 @@ Parameter | Required | Description
 reference | Yes | Your unique reference for this shipment. We use this when a carrier needs a unique identifier for your shipment, if this is longer than 25 characters the shipment may be rejected
 reference2 | Yes | A second non-unique reference
 delivery_service | No | The Shiptheory delivery service ID. See Delivery Services. If this is not provided or you pass a delivery service that does not exist, the shipment will be subject to any shipping rules setup on your account
+increment | No | Only supported alongside ``delivery_service`, used when an account has multiple instances of the same carrier. See <a href="https://support.shiptheory.com/support/solutions/articles/24000060014-finding-your-carrier-increment" target="_blank">Finding Your Carrier Increment</a>
 shipment_detail | |
 weight | Yes | The weight of the shipment in kilograms, to three decimal places
 parcels | Yes | The number of boxes or labels as a full number
