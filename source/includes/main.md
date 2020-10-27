@@ -48,6 +48,28 @@ If you are developing an application that will be used by more than 1 company, o
 
 Please contact Shiptheory support to obtain a partner tag. There is no charge for this, tags are used to provide better support to customers and partners.
 
+## Pagination
+
+Some API methods support pagination. A blue notice will show on the document for those that do. In the response data returned by methods that will support pagination, you will see pagination data as per the code panel to your right. 
+
+Methods that support pagination can be `sorted`, `limited` and `paged` by passing URL parameters.
+
+For example: `https://api.shiptheory.com/v1/packages/sizes?sort=id&direction=desc&page=1&limit=10` will return page 1 of the first 10 package sizes sorted on the *id* with the biggest first. Each method has different sorting options and limitations, see the documentation on each method.
+
+```json
+{
+  ...
+  "pagination": {
+    "page": 1, //current page
+    "pages": 3, //total number of pages with results
+    "results": 75, //total results across all pages
+    "results_per_page": 25, //results per page
+    "limit": 100 //limit
+  }
+}
+```
+
+
 
 # Authentication
 
@@ -989,3 +1011,104 @@ The `id` field is what you need to pass in the `return_service` field when makin
 ### HTTP Request
 
 `GET https://api.shiptheory/v1/services/incoming`
+
+# Packages
+
+Some carriers, typically pallet, freight and international carriers, support specifying multiple differing package sizes when creating a shipment. For those carriers that support it, it is possible to specify the package size in the [`Book Shipment` POST request](http://localhost:4567/#book).
+
+## Sizes
+
+```php
+$ch = curl_init('https://api.shiptheory/v1/packages/sizes');
+
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Authorization: bearer asd1AdiJKV1QiLCJhbGciOiJIUzI1NiJ9.dafMTasdsa..',
+    'Accept: application/json'
+));
+
+$result = curl_exec($ch);
+curl_close($ch);
+
+echo $result;
+```
+
+```javascript
+// make sure you have installed the request module (npm install request)
+var request = require('request');
+
+request.get('https://api.shiptheory/v1/packages/sizes', {
+  headers: {
+    'Accept': 'application/json'
+  },
+  auth: {
+    'bearer': 'eyJ0eXAiO....'
+  }
+}, function optionalCallback(err, httpResponse, body) {
+  if (err) {
+    return console.error('Request Failed:', err);
+  }
+  console.log(body);
+});
+```
+
+> The above code returns JSON structured like this:
+
+```json
+{
+  "package_sizes": [
+    {
+      "id": 11110,
+      "name": "Quarter Pallet",
+      "length": 1,
+      "width": 1,
+      "height": 1,
+      "active": true,
+      "created": "2016-05-18T14:05:04+0000",
+      "modified": "2016-05-18T14:05:04+0000"
+    },
+    {
+      "id": 11120,
+      "name": "Small Box",
+      "length": 2,
+      "width": 2,
+      "height": 1,
+      "active": true,
+      "created": "2017-09-12T09:37:37+0000",
+      "modified": "2017-09-12T09:37:37+0000"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "pages": 1,
+    "results": 2,
+    "results_per_page": 2,
+    "limit": 25
+  }
+}
+```
+
+
+Performing a GET on `/packages/sizes` returns a list of the package sizes setup on your Shiptheory account. For more information on how to use package sizes, or if your package size API response is empty, please refer ti our guide on [Using Package Sizes](https://support.shiptheory.com/support/solutions/articles/24000026829-using-package-sizes).
+
+The `id` returned from this call can be used to specify the package size in the `Book Shipment` POST request, [documented above](https://shiptheory.com/developer/index.html#book).
+
+<aside class="notice">
+This method supports paging. See [How to use paging](https://shiptheory.com/developer/index.html#pagination).
+</aside>
+
+The maximum limit of results for this call is 100. The limit can be passed in the URL as `?limit=25`, for example.
+
+The following URL parameters can be used to `sort` the data:
+
+* id
+* name
+* length
+* width
+* height
+* active  
+
+
+### HTTP Request
+
+`GET https://api.shiptheory/v1/packages/sizes`
