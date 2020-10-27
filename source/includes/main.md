@@ -1,30 +1,12 @@
 # Introduction
 
-Shiptheory provodes a REST API that allows you to communicate directly with all of our [supported carriers](https://shiptheory.com/#integrations). Currently the following methods are available.
+Shiptheory provides a REST API that allows you to communicate directly with all of our [supported carriers](https://shiptheory.com/#integrations). Currently the following methods are available.
 
-* Book Shipment
+This documentation provides information on how to integrate with Shiptheory from other applications and covers creating and searching shipments, printing shipping labels and return labels as well as returning lists of available delivery services and package sizes.
 
-Book a shipment over the API using Shiptheory's automatic shipping rules or specify a specific carrier directly.
+## Testing with Postman and Insomnia
 
-* Get Shipping Labels
-
-Get any shipping labels attached to an existing shipment.
-
-* Get Tracking Number
-
-Get the tracking number of an existing shipment.
-
-* Get Services
-
-List all Carriers, delivery services, formats and enhancements available on your Shiptheory account.
-
-## Testing with Postman
-
-Postman is a great app that allows you to send make HTTP requests and is useful when developing API integrations.
-
-We have published a collection of Shiptheory API test calls on Postman that may save you some time during development.
-
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/12b536df2bbb90822086)
+We recommend using a REST client during development. Two of our favourites are [Insomnia](https://insomnia.rest/) and [Postman](https://www.postman.com/).
 
 ## Partner Tag
 
@@ -50,11 +32,28 @@ Please contact Shiptheory support to obtain a partner tag. There is no charge fo
 
 ## Pagination
 
-Some API methods support pagination. A blue notice will show on the document for those that do. In the response data returned by methods that will support pagination, you will see pagination data as per the code panel to your right. 
+Some API methods support pagination. A blue notice will show on the document for those that do. In the response data returned by methods that will support pagination, you will see pagination data as per the code panel to your right and described in the table below.
+
+Field            | Description
+---------------- | -------  
+page             | Current page number      
+pages            | Total number of pages with results      
+results          | Total results across all pages
+results_per_page | Results per page
+limit            | Limit of results to return
 
 Methods that support pagination can be `sorted`, `limited` and `paged` by passing URL parameters.
 
 For example: `https://api.shiptheory.com/v1/packages/sizes?sort=id&direction=desc&page=1&limit=10` will return page 1 of the first 10 package sizes sorted on the *id* with the biggest first. Each method has different sorting options and limitations, see the documentation on each method.
+
+### Pagination Parameters
+
+Parameter        | Description
+---------------- | -------  
+sort             | Field to sort data by. See method documentation for supported fields
+direction        | Ascending (asc) or Descending (desc)     
+page             | Page number to return. 404 means you have specified a page number without results
+limit            | Limit of results to return
 
 ```json
 {
@@ -207,6 +206,16 @@ $data = json_encode(
                 "value" => 49.99,
                 "weight" => 1
             )            
+        ),
+        "packages" => array(
+            array(
+                "id" => 100001,
+                "weight" => 10.50
+            ),
+            array(
+                "id" => 100001,
+                "weight" => 10
+            )            
         )
     )
 );
@@ -285,6 +294,14 @@ var options = {
           qty: 2,
           value: 49.99,
           weight: 1
+      }],
+      packages: [{
+          id: 10001,
+          weight: 100
+      },
+      {
+          id: 10002,
+          weight: 10.39
       }]
     }
 };
@@ -372,6 +389,9 @@ weight | Yes | The weight of the product in kilograms, to three decimal places
 commodity_code  | No | UN Commodity Code, used for shipping internationally
 commodity_description | No | Commodity Description, used for shipping internationally
 commodity_manucountry | No | Country of Manufacture, used for shipping internationally
+packages | | Optional. See [Using Package Sizes](https://support.shiptheory.com/support/solutions/articles/24000026829-using-package-sizes)
+id | Cond. | The ID of the Package. See [Package Sizes](https://shiptheory.com/developer/index.html#packages)
+weight | Cond. | Weight of the package, in Kg, to two decimal places
 
 <aside class="notice">
 If you do not send a Senders address, the default shipping location from your Shiptheory account will be used.
@@ -1101,12 +1121,17 @@ The maximum limit of results for this call is 100. The limit can be passed in th
 
 The following URL parameters can be used to `sort` the data:
 
-* id
-* name
-* length
-* width
-* height
-* active  
+### Sorting Parameters
+
+Field          | Description
+-------------- | -------  
+id             | The ID of the package size, to use in the Book Shipment request
+name           | Name given in the UI to the package size
+length         | Length specified in the UI
+width          | Width specified in the UI
+height	       | Height specified in the UI
+active	       | Enabled or disabled in the UI
+
 
 
 ### HTTP Request
