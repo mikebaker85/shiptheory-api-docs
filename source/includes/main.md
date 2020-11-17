@@ -82,7 +82,7 @@ $data = json_encode(
     )
 );
 
-$ch = curl_init('https://api.shiptheory/v1/token');
+$ch = curl_init('https://api.shiptheory.com/v1/token');
 
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -104,7 +104,7 @@ echo $result;
 var request = require('request');
 
 var options = {
-  url: 'https://api.shiptheory/v1/token',
+  url: 'https://api.shiptheory.com/v1/token',
   headers: {
     'Accept': 'application/json'
   },
@@ -144,7 +144,7 @@ Make sure that the authentication request (and all subsequent requests) provide 
 
 ### HTTP Request
 
-`POST https://api.shiptheory/v1/token`
+`POST https://api.shiptheory.com/v1/token`
 
 ### Parameters
 
@@ -220,7 +220,7 @@ $data = json_encode(
     )
 );
 
-$ch = curl_init('https://api.shiptheory/v1/shipments');
+$ch = curl_init('https://api.shiptheory.com/v1/shipments');
 
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -245,7 +245,7 @@ echo $result;
 var request = require('request');
 
 var options = {
-  url: 'https://api.shiptheory/v1/shipments',
+  url: 'https://api.shiptheory.com/v1/shipments',
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
@@ -333,7 +333,7 @@ This endpoint makes it possible for you to add a shipment to Shiptheory and book
 
 ### HTTP Request
 
-`POST https://api.shiptheory/v1/shipments`
+`POST https://api.shiptheory.com/v1/shipments`
 
 ### Parameters
 
@@ -406,7 +406,7 @@ Product data allows Shiptheory to provide greater Shipping Rule accuracy
 ```php
 $reference = 12345;
 
-$ch = curl_init('https://api.shiptheory/v1/shipments/'.$reference);
+$ch = curl_init('https://api.shiptheory.com/v1/shipments/'.$reference);
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -424,7 +424,7 @@ echo $result;
 // make sure you have installed the request module (npm install request)
 var request = require('request');
 
-request.get('https://api.shiptheory/v1/shipments/S1234', {
+request.get('https://api.shiptheory.com/v1/shipments/S1234', {
   headers: {
     'Accept': 'application/json'
   },
@@ -482,7 +482,7 @@ This endpoint retrieves the status, created and last modified datetime, tracking
 
 ### HTTP Request
 
-`GET https://api.shiptheory/v1/shipments/<REFERENCE>`
+`GET https://api.shiptheory.com/v1/shipments/<REFERENCE>`
 
 ### URL Parameters
 
@@ -518,7 +518,7 @@ type | Type of activity. Error, Info or Success
  */
 $query = "created_from=2019-09-01&created_to=2019-09-30&DeliveryAddress.postcode=ba1 2wa&status=Failed&include_products=1";
 
-$ch = curl_init('https://api.shiptheory/v1/shipments/search?'.$query);
+$ch = curl_init('https://api.shiptheory.com/v1/shipments/search?'.$query);
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -727,7 +727,7 @@ This endpoints makes it possible to search shipments in a Shiptheory account by 
 
 ### HTTP Request
 
-`GET https://api.shiptheory/v1/shipments/search`
+`GET https://api.shiptheory.com/v1/shipments/search`
 
 ### Parameters
 
@@ -793,7 +793,7 @@ $data = json_encode(
     )
 );
 
-$ch = curl_init('https://api.shiptheory/v1/returns');
+$ch = curl_init('https://api.shiptheory.com/v1/returns');
 
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -819,7 +819,7 @@ echo $result;
 var request = require('request');
 
 var options = {
-  url: 'https://api.shiptheory/v1/returns',
+  url: 'https://api.shiptheory.com/v1/returns',
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
@@ -874,7 +874,7 @@ request.post(options, function optionalCallback(err, httpResponse, body) {
 
 ### HTTP Request
 
-`POST https://api.shiptheory/v1/returns`
+`POST https://api.shiptheory.com/v1/returns`
 
 ### Parameters
 
@@ -895,7 +895,7 @@ If you would like to create returns labels that are not attached to any existing
 ## Outgoing Services
 
 ```php
-$ch = curl_init('https://api.shiptheory/v1/services');
+$ch = curl_init('https://api.shiptheory.com/v1/services');
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -913,7 +913,7 @@ echo $result;
 // make sure you have installed the request module (npm install request)
 var request = require('request');
 
-request.get('https://api.shiptheory/v1/services', {
+request.get('https://api.shiptheory.com/v1/services', {
   headers: {
     'Accept': 'application/json'
   },
@@ -957,13 +957,13 @@ The ``delivery_service`` field relates directly to the ``id`` of the Delivery Se
 
 ### HTTP Request
 
-`GET https://api.shiptheory/v1/services`
+`GET https://api.shiptheory.com/v1/services`
 
 ## Incoming Services (Returns)
 
 
 ```php
-$ch = curl_init('https://api.shiptheory/v1/services/incoming');
+$ch = curl_init('https://api.shiptheory.com/v1/services/incoming');
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -981,7 +981,7 @@ echo $result;
 // make sure you have installed the request module (npm install request)
 var request = require('request');
 
-request.get('https://api.shiptheory/v1/services/incoming', {
+request.get('https://api.shiptheory.com/v1/services/incoming', {
   headers: {
     'Accept': 'application/json'
   },
@@ -1030,7 +1030,7 @@ The `id` field is what you need to pass in the `return_service` field when makin
 
 ### HTTP Request
 
-`GET https://api.shiptheory/v1/services/incoming`
+`GET https://api.shiptheory.com/v1/services/incoming`
 
 # Packages
 
@@ -1039,7 +1039,7 @@ Some carriers, typically pallet, freight and international carriers, support spe
 ## Sizes
 
 ```php
-$ch = curl_init('https://api.shiptheory/v1/packages/sizes');
+$ch = curl_init('https://api.shiptheory.com/v1/packages/sizes');
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -1057,7 +1057,7 @@ echo $result;
 // make sure you have installed the request module (npm install request)
 var request = require('request');
 
-request.get('https://api.shiptheory/v1/packages/sizes', {
+request.get('https://api.shiptheory.com/v1/packages/sizes', {
   headers: {
     'Accept': 'application/json'
   },
@@ -1136,4 +1136,4 @@ active	       | Enabled or disabled in the UI
 
 ### HTTP Request
 
-`GET https://api.shiptheory/v1/packages/sizes`
+`GET https://api.shiptheory.com/v1/packages/sizes`
