@@ -509,6 +509,225 @@ created | Datetime of activity
 type | Type of activity. Error, Info or Success
 
 
+## List Shipments
+
+```php
+/*
+ * The below example query lists for all Royal Mail shipments 
+ * created from BigCommerce on the 14th of November 2020
+ */
+$query = "created=2020-11-14&Couriers.couriername=Royal Mail&channel_name=Bigcommerce";
+
+$ch = curl_init('https://api.shiptheory.com/v1/shipments/list?'.$query);
+
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Authorization: bearer asd1AdiJKV1QiLCJhbGciOiJIUzI1NiJ9.dafMTasdsa..',
+    'Accept: application/json'
+));
+
+$result = curl_exec($ch);
+curl_close($ch);
+
+echo $result;
+```
+
+> The above code returns JSON structured like this:
+
+```json
+{
+	"shipments": [
+		{
+			"created": "2019-09-20T13:39:54+0000",
+			"modified": "2019-09-20T13:39:54+0000",
+			"channel_reference_id": "ST0000069",
+			"channel_reference_id_2": "ST0000064",
+			"channel_name": "Manual",
+			"status": "Failed",
+			"courier": {
+				"couriername": "Parcelforce"
+			},
+			"courierservice": {
+				"id": 24,
+				"serviceName": "express48"
+			},
+			"shipment_detail": {
+				"tracking_number": null,
+				"weight": 0.5,
+				"grams": 500,
+				"gift_message": "Happy birthday!",  
+				"instructions": "Please leave behind the gate",
+				"value": 1,
+				"parcels": 1,
+				"width": null,
+				"height": null,
+				"depth": null
+			},
+			"delivery_address": {
+				"company": "Shiptheory",
+				"address_line_1": "20, Berkeley House",
+				"address_line_2": "Charlotte Street",
+				"address_line_3": null,
+				"city": "Bristol",
+				"county": "Somerset",
+				"postcode": "BA1 2WA",
+				"telephone": "0776666666",
+				"mobile": "",
+				"email": "test@test1.com",
+				"firstname": "Peter",
+				"lastname": "Pan",
+				"country": {
+					"country": "United Kingdom",
+					"code": "GBR"
+				}
+			},
+			"latest_public_reference": null
+		},
+		{
+			"created": "2019-09-20T13:39:51+0000",
+			"modified": "2019-09-20T13:39:51+0000",
+			"channel_reference_id": "ST0000068",
+			"channel_reference_id_2": "ST0000064",
+			"channel_name": "Magento",
+			"status": "Failed",
+			"courier": {
+				"couriername": "FedEx"
+			},
+			"courierservice": null,
+			"shipment_detail": {
+				"tracking_number": null,
+				"weight": 0.5,
+				"grams": 500,
+				"gift_message": "Happy birthday!",  
+				"instructions": "Please leave behind the gate",
+				"value": 1,
+				"parcels": 1,
+				"width": null,
+				"height": null,
+				"depth": null
+			},
+			"delivery_address": {
+				"company": "Shiptheory",
+				"address_line_1": "20, Berkeley House",
+				"address_line_2": "Charlotte Street",
+				"address_line_3": null,
+				"city": "Bristol",
+				"county": "Somerset",
+				"postcode": "BA1 2WA",
+				"telephone": "0776666666",
+				"mobile": "",
+				"email": "test@test1.com",
+				"firstname": "Peter",
+				"lastname": "Pan",
+				"country": {
+					"country": "United Kingdom",
+					"code": "GBR"
+				}
+			},
+			"latest_public_reference": null
+		},
+		{
+			"created": "2019-09-20T13:38:23+0000",
+			"modified": "2019-09-20T13:38:23+0000",
+			"channel_reference_id": "ST0000063",
+			"channel_reference_id_2": "ST0000063",
+			"channel_name": "TradeGecko",
+			"status": "Failed",
+			"courier": null,
+			"courierservice": null,
+			"shipment_detail": {
+				"tracking_number": null,
+				"weight": 0,
+				"value": 1,
+				"grams": 500,
+				"gift_message": "Happy birthday!",  
+				"instructions": "Please leave behind the gate",
+				"parcels": 1,
+				"width": null,
+				"height": null,
+				"depth": null
+			},
+			"delivery_address": {
+				"company": "Shiptheory",
+				"address_line_1": "20, Berkeley House",
+				"address_line_2": "Charlotte Street",
+				"address_line_3": null,
+				"city": "Bristol",
+				"county": "Somerset",
+				"postcode": "BA1 2WA",
+				"telephone": "0776666666",
+				"mobile": "",
+				"email": "test@test1.com",
+				"firstname": "Peter",
+				"lastname": "Pan",
+				"country": {
+					"country": "United Kingdom",
+					"code": "GBR"
+				}
+			},
+			"latest_public_reference": null
+		}
+	],
+  "pagination": {
+    "page": 1,
+    "pages": 1,
+    "results": 3,
+    "results_per_page": 100,
+    "limit": 100
+  }
+}
+```
+
+This endpoints makes it possible to search shipments in a Shiptheory account by specifying a number of GET parameters, documented below.
+
+### HTTP Request
+
+`GET https://api.shiptheory.com/v1/shipments/list`
+
+### Parameters
+
+Parameter | Required | Description
+--------- | -------- | -----------
+created | No | YYYY-MM-DD. The shipment created date (the date the shipment was received by Shiptheory)
+modified | No | YYYY-MM-DD. The shipment last modified date (the date the shipment was last updated by Shiptheory).
+status | No | Options: *'Failed', 'Complete', 'Ready', 'Ignored', 'Not Ready', 'Print Error', 'Waiting', 'PROCESSING'*. Case sensitive. <a href="http://support.shiptheory.com/support/solutions/articles/12400-shiptheory-statuses-explained" target="_blank">Shiptheory Statuses Explained</a>.
+channel_name | No | The name of the sales channel in Shiptheory. For example: *Magento*. 
+channel_reference_id | No | Unique reference from the sales channel used when creating the shipment. This is usually the Shipment ID
+channel_reference_id_2 | No | A second sales channel reference. Usually Order ID
+ShipmentDetails.parcels | No | The number of *boxes* on a shipment
+ShipmentDetails.weight | No | The weight of the shipment
+ShipmentDetails.value | No | The monetary value of the shipment
+Couriers.couriername | No | Case sensitive carrier name. You can get valid carrier names from the <A href="https://shiptheory.com/developer/index.html#outgoing-services" target="_blank">GET Services Method</a>
+Countries.code | No | 3 Character country ISO code
+DeliveryAddress.address_line_1 | No | Delivery Address Line 1
+DeliveryAddress.address_line_2 | No | Delivery Address Line 2
+DeliveryAddress.address_line_3 | No | Delivery Address Line 3
+DeliveryAddress.city | No | Delivery City
+DeliveryAddress.county | No | Delivery County/State
+DeliveryAddress.postcode | No | Delivery Postcode/Zipcode
+DeliveryAddress.telephone | No | Delivery Telephone Number 
+DeliveryAddress.email | No | Delivery Email Address
+DeliveryAddress.company | No | Delivery Company Name
+DeliveryAddress.firstname | No | Delivery First Name 
+DeliveryAddress.lastname | No | Delivery Surname
+
+<aside class="notice">
+This method supports paging. See [How to use paging](https://shiptheory.com/developer/index.html#pagination).
+</aside>
+
+The maximum limit of results per page for this call is 100. The limit can be passed in the URL as `?limit=25`, for example.
+
+The following URL parameters can be used to `sort` the data:
+
+### Sorting Parameters
+
+Field          | Description
+-------------- | -------  
+created        | The date the shipment was first received into Shiptheory
+modified       | The last date the shipment was modified in Shiptheory
+
+
+
 ## Search Shipments
 
 ```php
@@ -555,6 +774,9 @@ echo $result;
 				"tracking_number": null,
 				"weight": 0.5,
 				"value": 1,
+				"grams": 500,
+				"gift_message": "Happy birthday!",  
+				"instructions": "Please leave behind the gate",
 				"parcels": 1,
 				"width": null,
 				"height": null,
@@ -581,10 +803,13 @@ echo $result;
 			"products": [
 				{
 					"qty": 2,
-					"sku": "15grammer",
-					"name": "15 gram product",
+					"sku": "20grammer",
+					"name": "20 gram product",
 					"value": "1.00",
+					"catalog_price": "1.00",
+					"barcode": null,
 					"weight": "0.02",
+					"grams": "200",
 					"length": "25",
 					"width": "25",
 					"height": "25",
@@ -625,6 +850,9 @@ echo $result;
 				"tracking_number": null,
 				"weight": 0.5,
 				"value": 1,
+				"grams": 500,
+				"gift_message": "Happy birthday!",  
+				"instructions": "Please leave behind the gate",
 				"parcels": 1,
 				"width": null,
 				"height": null,
@@ -651,10 +879,13 @@ echo $result;
 			"products": [
 				{
 					"qty": 2,
-					"sku": "15grammer",
-					"name": "15 gram product",
+					"sku": "20grammer",
+					"name": "20 gram product",
 					"value": "1.00",
+					"catalog_price": "1.00",
+					"barcode": null,
 					"weight": "0.02",
+					"grams": "200",
 					"length": "25",
 					"width": "25",
 					"height": "25",
@@ -693,6 +924,9 @@ echo $result;
 				"tracking_number": null,
 				"weight": 0,
 				"value": 1,
+				"grams": 500,
+				"gift_message": "Happy birthday!",  
+				"instructions": "Please leave behind the gate",
 				"parcels": 1,
 				"width": null,
 				"height": null,
@@ -1117,7 +1351,7 @@ The `id` returned from this call can be used to specify the package size in the 
 This method supports paging. See [How to use paging](https://shiptheory.com/developer/index.html#pagination).
 </aside>
 
-The maximum limit of results for this call is 100. The limit can be passed in the URL as `?limit=25`, for example.
+The maximum limit of results per page for this call is 100. The limit can be passed in the URL as `?limit=25`, for example.
 
 The following URL parameters can be used to `sort` the data:
 
