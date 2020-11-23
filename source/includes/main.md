@@ -401,7 +401,7 @@ If you do not send a Senders address, the default shipping location from your Sh
 Product data allows Shiptheory to provide greater Shipping Rule accuracy
 </aside>
 
-## Get Shipment (Previously Details)
+## View Shipment
 
 ```php
 $reference = 12345;
@@ -1268,7 +1268,7 @@ The `id` field is what you need to pass in the `return_service` field when makin
 
 # Packages
 
-Some carriers, typically pallet, freight and international carriers, support specifying multiple differing package sizes when creating a shipment. For those carriers that support it, it is possible to specify the package size in the [`Book Shipment` POST request](http://localhost:4567/#book).
+Some carriers, typically pallet, freight and international carriers, support specifying multiple differing package sizes when creating a shipment. For those carriers that support it, it is possible to specify the package size in the [`Book Shipment` POST request](https://shiptheory.com/developer/index.html#book).
 
 ## Sizes
 
@@ -1343,9 +1343,15 @@ request.get('https://api.shiptheory.com/v1/packages/sizes', {
 ```
 
 
+
 Performing a GET on `/packages/sizes` returns a list of the package sizes setup on your Shiptheory account. For more information on how to use package sizes, or if your package size API response is empty, please refer ti our guide on [Using Package Sizes](https://support.shiptheory.com/support/solutions/articles/24000026829-using-package-sizes).
 
 The `id` returned from this call can be used to specify the package size in the `Book Shipment` POST request, [documented above](https://shiptheory.com/developer/index.html#book).
+
+### HTTP Request
+
+`GET https://api.shiptheory.com/v1/packages/sizes`
+
 
 <aside class="notice">
 This method supports paging. See [How to use paging](https://shiptheory.com/developer/index.html#pagination).
@@ -1368,6 +1374,455 @@ active	       | Enabled or disabled in the UI
 
 
 
+# Products
+
+It is possible to view a list of the products in your Shiptheory account as well as view, update and add individual products.
+
+<aside class="warning">
+When adding a shipment via the `Book Shipment` POST request [documented above](https://shiptheory.com/developer/index.html#book), any product data that is different (except the SKU), will be updated in your catalogue. The same happens if you download orders from a third party sales channel, such as Magento, or BigCommerce; when product data is seen by Shiptheory that differs from what is on file, the latest data is used, overwriting existing data.
+</aside>
+
+## Add Product
+
+
+```php
+$data = json_encode(
+    array(
+        "sku" => "hat1",
+        "name" => "Ladies Wedding Hat",
+        "price" => 45,
+        "weight" => 3.50,
+        "commodity_code" => "123456",
+        "commodity_description" => "Ladies hat 90% cotton 20% mixed",
+        "commodity_manucountry" => "GBR",
+        "commodity_composition" => "Cotton",
+        "barcode" => "ABC123123"
+    )
+);
+
+$ch = curl_init('https://api.shiptheory.com/v1/products');
+
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Accept: application/json',
+    'Content-Type: application/json',
+    'Authorization: Bearer AasLK190ALhaLDSj1nal92Ja...',
+    'Content-Length: ' . strlen($data))
+);
+
+$result = curl_exec($ch);
+curl_close($ch);
+
+echo $result;
+
+```
+
+```javascript
+// make sure you have installed the request module (npm install request)
+var request = require('request');
+
+var options = {
+  url: 'https://api.shiptheory.com/v1/products',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
+  auth: {
+    'bearer': 'eyJ0eXAiOiJKV1Q...'
+  },
+  form: {
+      sku: 'hat1',
+      name: 'Ladies Wedding Hat',
+      price: 45,
+      weight: 3.50',
+      commodity_code: '123456',
+      commodity_description: 'Ladies hat 90% cotton 20% mixed',
+      commodity_manucountry: 'GBR',
+      commodity_composition: 'Cotton',
+      barcode: 'ABC123123',
+    }
+};
+
+request.post(options, function optionalCallback(err, httpResponse, body) {
+  if (err) {
+    return console.error('Request Failed:', err);
+  }
+  console.log(body);
+});
+```
+
+> A successful request will return JSON structured like this:
+
+```json
+{
+  "success": true,
+  "product": {
+    "sku": "hat1",
+    "name": "Ladies Wedding Hat",
+    "price": 45,
+    "weight": 3.50,
+    "barcode": "ABC123123",
+    "commodity_code": "123456",
+    "commodity_description": "Ladies hat 90% cotton 20% mixed",
+    "commodity_manucountry": "GBR",
+    "commodity_composition": "Cotton",
+    "created": "2020-11-23T14:05:02+0000",
+    "modified": "2020-11-23T14:05:02+0000"
+  }
+}
+```
+
+> An unsuccessful request will return JSON structured like this:
+
+```json
+{
+  "error": {
+    "sku": {
+      "unique": "A product with this SKU already exists"
+    }
+  }
+}
+```
+
+
+Add a single product, with a unique SKU, to your Shiptheory account.
+
+
 ### HTTP Request
 
-`GET https://api.shiptheory.com/v1/packages/sizes`
+`POST https://api.shiptheory.com/v1/products`
+
+### Parameters
+
+Parameter | Required | Description
+--------- | ------- | -----------
+sku | Yes | Your unique product SKU. Max 100 characters
+name | No | Product name. Max 255 characters
+price | No | Price of the product. Between 0 and 9999999.99
+weight | No | Weight of the product in Kg. Between 0 and 9999999.99
+barcode | No | Product barcode. Max 15 characters
+commodity_code | No | Commodity HS Tariff code. Max 100 characters
+commodity_description | No | Commodity HS Tariff code. Max 100 characters
+commodity_manucountry | No | Commodity country of manufacture. Max 100 characters
+commodity_composition | No | Commodity composition. Max 100 characters
+length | No | Product length. Between 0 and 9999999.99
+width | No | Product width. Between 0 and 9999999.99
+height | No | Product height. Between 0 and 9999999.99
+
+## View Product
+
+```php
+$ch = curl_init('https://api.shiptheory.com/v1/products/view/hat1');
+
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Authorization: bearer asd1AdiJKV1QiLCJhbGciOiJIUzI1NiJ9.dafMTasdsa..',
+    'Accept: application/json'
+));
+
+$result = curl_exec($ch);
+curl_close($ch);
+
+echo $result;
+```
+
+```javascript
+// make sure you have installed the request module (npm install request)
+var request = require('request');
+
+request.get('https://api.shiptheory.com/v1/products/view/hat1', {
+  headers: {
+    'Accept': 'application/json'
+  },
+  auth: {
+    'bearer': 'eyJ0eXAiO....'
+  }
+}, function optionalCallback(err, httpResponse, body) {
+  if (err) {
+    return console.error('Request Failed:', err);
+  }
+  console.log(body);
+});
+```
+
+> The above code returns JSON structured like this:
+
+```json
+{
+  "product": {
+    "sku": "hat1",
+    "name": "Wedding Hat",
+    "price": 41,
+    "weight": 4,
+    "barcode": "",
+    "commodity_code": "123456",
+    "commodity_description": "Ladies hat 90% cotton 20% mixed",
+    "commodity_manucountry": "GBR",
+    "commodity_composition": "Cotton",
+    "length": 10,
+    "width": 10,
+    "height": 5,
+    "created": "2020-11-23T00:00:00+0000",
+    "modified": "2020-11-23T00:00:00+0000"
+  }
+}
+```
+
+
+Returns a single product based on the SKU.
+
+
+### HTTP Request
+
+`GET https://api.shiptheory.com/v1/products/view/<SKU>`
+
+
+
+## List Products
+
+```php
+$ch = curl_init('https://api.shiptheory.com/v1/products');
+
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Authorization: bearer asd1AdiJKV1QiLCJhbGciOiJIUzI1NiJ9.dafMTasdsa..',
+    'Accept: application/json'
+));
+
+$result = curl_exec($ch);
+curl_close($ch);
+
+echo $result;
+```
+
+```javascript
+// make sure you have installed the request module (npm install request)
+var request = require('request');
+
+request.get('https://api.shiptheory.com/v1/products', {
+  headers: {
+    'Accept': 'application/json'
+  },
+  auth: {
+    'bearer': 'eyJ0eXAiO....'
+  }
+}, function optionalCallback(err, httpResponse, body) {
+  if (err) {
+    return console.error('Request Failed:', err);
+  }
+  console.log(body);
+});
+```
+
+> The above code returns JSON structured like this:
+
+```json
+{
+  "products": [
+    {
+      "sku": "basecap1",
+      "name": "Baseball Cap",
+      "price": 4,
+      "weight": 1,
+      "barcode": "",
+      "commodity_code": "123456",
+      "commodity_description": "Sports cap",
+      "commodity_manucountry": "GBR",
+      "commodity_composition": "Cotton",
+      "length": 0,
+      "width": 0,
+      "height": 0,
+      "created": "2020-11-23T00:00:00+0000",
+      "modified": "2020-11-23T00:00:00+0000"
+    },
+    {
+      "sku": "hat1",
+      "name": "Ladies Wedding Hat",
+      "price": 10,
+      "weight": 3.50,
+      "barcode": "",
+      "commodity_code": "123457",
+      "commodity_description": "Ladies hat 90% cotton 20% mixed",
+      "commodity_manucountry": "GBR",
+      "commodity_composition": "Cotton",
+      "length": 0,
+      "width": 0,
+      "height": 0,
+      "created": "2020-11-23T00:00:00+0000",
+      "modified": "2020-11-23T00:00:00+0000"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "pages": 1,
+    "results": 2,
+    "results_per_page": 2,
+    "limit": 25
+  }
+}
+```
+
+
+Returns a list of the products in your account.
+
+### HTTP Request
+
+`GET https://api.shiptheory.com/v1/products`
+
+
+<aside class="notice">
+This method supports paging. See [How to use paging](https://shiptheory.com/developer/index.html#pagination).
+</aside>
+
+The maximum limit of results per page for this call is 100. The limit can be passed in the URL as `?limit=25`, for example.
+
+The following URL parameters can be used to `sort` the data:
+
+### Sorting Parameters
+
+Field          | Description
+-------------- | -------  
+sku            | The SKU of the product size
+name           | Name given in to the product
+price          | Price 
+weight         | Weight 
+created	       | Date the product was first seen by Shiptheory 
+modified	       | Date the product was last updated in Shiptheory  
+
+
+## Update Product
+
+
+```php
+$data = json_encode(
+    array(
+        "sku" => "hat1",
+        "name" => "Ladies Wedding Hat",
+        "price" => 45,
+        "weight" => 3.50,
+        "commodity_code" => "123456",
+        "commodity_description" => "Ladies hat 90% cotton 20% mixed",
+        "commodity_manucountry" => "GBR",
+        "commodity_composition" => "Cotton",
+        "barcode" => "ABC123123"
+    )
+);
+
+$ch = curl_init('https://api.shiptheory.com/v1/products/update/hat1');
+
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Accept: application/json',
+    'Content-Type: application/json',
+    'Authorization: Bearer AasLK190ALhaLDSj1nal92Ja...',
+    'Content-Length: ' . strlen($data))
+);
+
+$result = curl_exec($ch);
+curl_close($ch);
+
+echo $result;
+
+```
+
+```javascript
+// make sure you have installed the request module (npm install request)
+var request = require('request');
+
+var options = {
+  url: 'https://api.shiptheory.com/v1/products/update/hat1',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
+  auth: {
+    'bearer': 'eyJ0eXAiOiJKV1Q...'
+  },
+  form: {
+      sku: 'hat1',
+      name: 'Ladies Wedding Hat',
+      price: 45,
+      weight: 3.50',
+      commodity_code: '123456',
+      commodity_description: 'Ladies hat 90% cotton 20% mixed',
+      commodity_manucountry: 'GBR',
+      commodity_composition: 'Cotton',
+      barcode: 'ABC123123',
+    }
+};
+
+request.post(options, function optionalCallback(err, httpResponse, body) {
+  if (err) {
+    return console.error('Request Failed:', err);
+  }
+  console.log(body);
+});
+```
+
+> A successful request will return JSON structured like this:
+
+```json
+{
+  "success": true,
+  "product": {
+    "sku": "hat1",
+    "name": "Ladies Wedding Hat",
+    "price": 45,
+    "weight": 3.50,
+    "barcode": "ABC123123",
+    "commodity_code": "123456",
+    "commodity_description": "Ladies hat 90% cotton 20% mixed",
+    "commodity_manucountry": "GBR",
+    "commodity_composition": "Cotton",
+    "created": "2020-11-23T14:05:02+0000",
+    "modified": "2020-11-23T14:05:02+0000"
+  }
+}
+```
+
+> An unsuccessful request will return JSON structured like this:
+
+```json
+{
+  "error": {
+    "sku": {
+      "unique": "A product with this SKU already exists"
+    }
+  }
+}
+```
+
+
+Update single product by SKU.
+
+
+### HTTP Request
+
+`PUT https://api.shiptheory.com/v1/products/update/<SKU>`
+
+### Parameters
+
+Parameter | Required | Description
+--------- | ------- | -----------
+sku | Yes | Your unique product SKU. Max 100 characters
+name | No | Product name. Max 255 characters
+price | No | Price of the product. Between 0 and 9999999.99
+weight | No | Weight of the product in Kg. Between 0 and 9999999.99
+barcode | No | Product barcode. Max 15 characters
+commodity_code | No | Commodity HS Tariff code. Max 100 characters
+commodity_description | No | Commodity HS Tariff code. Max 100 characters
+commodity_manucountry | No | Commodity country of manufacture. Max 100 characters
+commodity_composition | No | Commodity composition. Max 100 characters
+length | No | Product length. Between 0 and 9999999.99
+width | No | Product width. Between 0 and 9999999.99
+height | No | Product height. Between 0 and 9999999.99
+
+
