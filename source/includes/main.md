@@ -448,7 +448,9 @@ request.get('https://api.shiptheory.com/v1/shipments/S1234', {
     "channel_reference_id_2": "ORDER1001",
     "created": "2016-04-27T20:42:57+0000",
     "modified": "2016-04-27T20:44:03+0000",
-    "status": "Complete"
+    "status": "Complete",
+    "tracking_number": "TT324201212GB",
+    "carrier": "Royal Mail"
   },
   "messages": [
     {
