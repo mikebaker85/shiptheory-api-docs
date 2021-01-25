@@ -179,7 +179,8 @@ $data = json_encode(
             "city" => "Bristol",
             "postcode" => "bs2 3ap",
             "telephone": "01171231234",
-            "country" => "GB"
+            "country" => "GB",
+            "tax_number" => "GB123456"
         ),
         "sender" => array(
             "company" => "Hair Wholesaler Co.",
@@ -269,7 +270,8 @@ var options = {
           city: 'Bristol',
           postcode: 'BS2 3AP',
           telephone: '01161231245',
-          country: 'GB'
+          country: 'GB',
+          tax_number: 'GB123456'
       },
       sender: {
           company: 'Hair Wholersaler Co.',
@@ -350,6 +352,7 @@ value | Yes | The monetary shipment cost to the customer
 enhancement_id | No | Carrier enhancement, only used when passing a delivery_service. See GET Services for IDs
 format_id | No | Carrier format, only used when passing a delivery_service. See GET Services for IDs
 instructions | No | Delivery instructions
+gift_message | No | Gift message
 channel_shipservice_name | No | A description of the shipping option chosen by the customer at order time
 currency_code | No | Specify the currency that this order has been paid in, must be a 3 letter currency code
 recipient | |
@@ -366,6 +369,7 @@ postcode | Yes | The delivery postal or zip code
 telephone | No | Delivery contact telephone number
 mobile | No | Delivery contact mobile number
 email | No | Delivery contact email address
+tax_number | No | Tax number, or EORI number of the customer
 sender | | If not sent, defaults to your default shipping location
 company | No | The sender company name
 first name | Cond. | First name of the sender
@@ -380,6 +384,7 @@ postcode | Cond. | The sender postal or zip code
 telephone | No | Sender contact telephone number
 mobile | No | Sender contact mobile number
 email | No | Sender contact email address
+tax_number | No | Tax number, or EORI number of the sender
 products | |
 name | Yes | Name of the product being sent
 sku | Yes | SKU of the product being sent
@@ -578,6 +583,7 @@ echo $result;
 				"email": "test@test1.com",
 				"firstname": "Peter",
 				"lastname": "Pan",
+				"tax_number": null,
 				"country": {
 					"country": "United Kingdom",
 					"code": "GBR"
@@ -621,6 +627,7 @@ echo $result;
 				"email": "test@test1.com",
 				"firstname": "Peter",
 				"lastname": "Pan",
+				"tax_number": null,
 				"country": {
 					"country": "United Kingdom",
 					"code": "GBR"
@@ -662,6 +669,7 @@ echo $result;
 				"email": "test@test1.com",
 				"firstname": "Peter",
 				"lastname": "Pan",
+				"tax_number": null,
 				"country": {
 					"country": "United Kingdom",
 					"code": "GBR"
@@ -712,6 +720,7 @@ DeliveryAddress.email | No | Delivery Email Address
 DeliveryAddress.company | No | Delivery Company Name
 DeliveryAddress.firstname | No | Delivery First Name 
 DeliveryAddress.lastname | No | Delivery Surname
+DeliveryAddress.tax_number | No | Tax number, or EORI number of the customer
 
 <aside class="notice">
 This method supports paging. See [How to use paging](https://shiptheory.com/developer/index.html#pagination).
@@ -782,7 +791,7 @@ echo $result;
 				"parcels": 1,
 				"width": null,
 				"height": null,
-				"depth": null
+				"depth": null,
 			},
 			"delivery_address": {
 				"company": "Shiptheory",
@@ -797,6 +806,7 @@ echo $result;
 				"email": "test@test1.com",
 				"firstname": "Peter",
 				"lastname": "Pan",
+				"tax_number": null,
 				"country": {
 					"country": "United Kingdom",
 					"code": "GBR"
@@ -873,6 +883,7 @@ echo $result;
 				"email": "test@test1.com",
 				"firstname": "Peter",
 				"lastname": "Pan",
+				"tax_number": null,
 				"country": {
 					"country": "United Kingdom",
 					"code": "GBR"
@@ -947,6 +958,7 @@ echo $result;
 				"email": "test@test1.com",
 				"firstname": "Peter",
 				"lastname": "Pan",
+				"tax_number": null,
 				"country": {
 					"country": "United Kingdom",
 					"code": "GBR"
@@ -993,6 +1005,7 @@ DeliveryAddress.email | No | Delivery Email Address
 DeliveryAddress.company | No | Delivery Company Name
 DeliveryAddress.firstname | No | Delivery First Name 
 DeliveryAddress.lastname | No | Delivery Surname
+DeliveryAddress.tax_number | No | Tax number or EORI number of customer
 
 
 # Return Labels
