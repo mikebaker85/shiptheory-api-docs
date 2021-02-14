@@ -169,7 +169,8 @@ $data = json_encode(
         "shipment_detail" => array(
             "weight" => 2.5,
             "parcels" => 1,
-            "value" => 135.18
+            "value" => 135.18,
+            "shipping_price" => 3.99
         ),
         "recipient" => array(
             "company" => "Beard Supplies Co",
@@ -260,7 +261,8 @@ var options = {
       shipment_detail: {
           weight: 2.5,
           parcels: 1,
-          value: 135.18
+          value: 135.18,
+          shipping_price: 3.99
       },
       recipient: {
           company: 'Beard Supplies Co',
@@ -349,6 +351,7 @@ shipment_detail | |
 weight | Yes | The weight of the shipment in kilograms, to three decimal places
 parcels | Yes | The number of boxes or labels as a full number
 value | Yes | The monetary shipment cost to the customer
+shipping_price | No | The price the end customer paid for shipping
 enhancement_id | No | Carrier enhancement, only used when passing a delivery_service. See GET Services for IDs
 format_id | No | Carrier format, only used when passing a delivery_service. See GET Services for IDs
 instructions | No | Delivery instructions
@@ -564,6 +567,7 @@ echo $result;
 				"grams": 500,
 				"gift_message": "Happy birthday!",  
 				"instructions": "Please leave behind the gate",
+				"shipping_price": 3.99,
 				"value": 1,
 				"parcels": 1,
 				"width": null,
@@ -606,6 +610,7 @@ echo $result;
 				"tracking_number": null,
 				"weight": 0.5,
 				"grams": 500,
+				"shipping_price": null,
 				"gift_message": "Happy birthday!",  
 				"instructions": "Please leave behind the gate",
 				"value": 1,
@@ -651,6 +656,7 @@ echo $result;
 				"grams": 500,
 				"gift_message": "Happy birthday!",  
 				"instructions": "Please leave behind the gate",
+				"shipping_price": null,
 				"parcels": 1,
 				"width": null,
 				"height": null,
@@ -786,6 +792,7 @@ echo $result;
 				"weight": 0.5,
 				"value": 1,
 				"grams": 500,
+				"shipping_price": 3.99,
 				"gift_message": "Happy birthday!",  
 				"instructions": "Please leave behind the gate",
 				"parcels": 1,
@@ -863,6 +870,7 @@ echo $result;
 				"weight": 0.5,
 				"value": 1,
 				"grams": 500,
+				"shipping_price": null,
 				"gift_message": "Happy birthday!",  
 				"instructions": "Please leave behind the gate",
 				"parcels": 1,
@@ -938,6 +946,7 @@ echo $result;
 				"weight": 0,
 				"value": 1,
 				"grams": 500,
+				"shipping_price": 10,
 				"gift_message": "Happy birthday!",  
 				"instructions": "Please leave behind the gate",
 				"parcels": 1,
