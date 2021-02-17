@@ -170,7 +170,8 @@ $data = json_encode(
             "weight" => 2.5,
             "parcels" => 1,
             "value" => 135.18,
-            "shipping_price" => 3.99
+            "shipping_price" => 3.99,
+            "reference3" => "ORDERREF3"
         ),
         "recipient" => array(
             "company" => "Beard Supplies Co",
@@ -262,7 +263,8 @@ var options = {
           weight: 2.5,
           parcels: 1,
           value: 135.18,
-          shipping_price: 3.99
+          shipping_price: 3.99,
+          reference3: 'ORDERREF3'
       },
       recipient: {
           company: 'Beard Supplies Co',
@@ -352,6 +354,7 @@ weight | Yes | The weight of the shipment in kilograms, to three decimal places
 parcels | Yes | The number of boxes or labels as a full number
 value | Yes | The monetary shipment cost to the customer
 shipping_price | No | The price the end customer paid for shipping
+reference3 | No | A third reference
 enhancement_id | No | Carrier enhancement, only used when passing a delivery_service. See GET Services for IDs
 format_id | No | Carrier format, only used when passing a delivery_service. See GET Services for IDs
 instructions | No | Delivery instructions
@@ -458,7 +461,8 @@ request.get('https://api.shiptheory.com/v1/shipments/S1234', {
     "modified": "2016-04-27T20:44:03+0000",
     "status": "Complete",
     "tracking_number": "TT324201212GB",
-    "carrier": "Royal Mail"
+    "carrier": "Royal Mail",
+    "channel_reference_id_3": "ORDERREF3"
   },
   "messages": [
     {
@@ -508,7 +512,8 @@ Parameter | Description
 --------- | -----------
 shipment | |
 channel_reference_id | The unique reference used when creating the shipment. This is usually the Shipment ID or Order ID.
-channel_reference_id | A second non-unique reference
+channel_reference_id_2 | A second non-unique reference
+channel_reference_id_3 | A third non-unique reference
 created  | The datetime the shipment was created
 modified | The last datetime the shipment was updated
 status | The status of the shipment now. <a href="http://support.shiptheory.com/support/solutions/articles/12400-shiptheory-statuses-explained" target="_blank">See statuses</a>
@@ -572,7 +577,8 @@ echo $result;
 				"parcels": 1,
 				"width": null,
 				"height": null,
-				"depth": null
+				"depth": null,
+        "channel_reference_id_3": "ORDERREF3"
 			},
 			"delivery_address": {
 				"company": "Shiptheory",
@@ -799,6 +805,7 @@ echo $result;
 				"width": null,
 				"height": null,
 				"depth": null,
+        "channel_reference_id_3": "ORDERREF3"
 			},
 			"delivery_address": {
 				"company": "Shiptheory",
@@ -876,7 +883,8 @@ echo $result;
 				"parcels": 1,
 				"width": null,
 				"height": null,
-				"depth": null
+				"depth": null,
+        "channel_reference_id_3": "ORDERREF3"
 			},
 			"delivery_address": {
 				"company": "Shiptheory",
@@ -952,7 +960,8 @@ echo $result;
 				"parcels": 1,
 				"width": null,
 				"height": null,
-				"depth": null
+				"depth": null,
+        "channel_reference_id_3": "ORDERREF3"
 			},
 			"delivery_address": {
 				"company": "Shiptheory",
