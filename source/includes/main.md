@@ -171,7 +171,8 @@ $data = json_encode(
             "parcels" => 1,
             "value" => 135.18,
             "shipping_price" => 3.99,
-            "reference3" => "ORDERREF3"
+            "reference3" => "ORDERREF3",
+            "sales_source" => "eBay"
         ),
         "recipient" => array(
             "company" => "Beard Supplies Co",
@@ -264,7 +265,8 @@ var options = {
           parcels: 1,
           value: 135.18,
           shipping_price: 3.99,
-          reference3: 'ORDERREF3'
+          reference3: 'ORDERREF3',
+          sales_source: 'eBay'
       },
       recipient: {
           company: 'Beard Supplies Co',
@@ -361,6 +363,7 @@ instructions | No | Delivery instructions
 gift_message | No | Gift message
 channel_shipservice_name | No | A description of the shipping option chosen by the customer at order time
 currency_code | No | Specify the currency that this order has been paid in, must be a 3 letter currency code
+sales_source | No | Where the sale originated, eBay, Amazon, Shopify, Etsy, BigCommerce, OnBuy.
 recipient | |
 company | No | The recipient company name
 first name | Yes | First name of the receiver
