@@ -172,7 +172,8 @@ $data = json_encode(
             "value" => 135.18,
             "shipping_price" => 3.99,
             "reference3" => "ORDERREF3",
-            "sales_source" => "eBay"
+            "sales_source" => "eBay",
+            "ship_date": "2021-04-20"
         ),
         "recipient" => array(
             "company" => "Beard Supplies Co",
@@ -266,7 +267,8 @@ var options = {
           value: 135.18,
           shipping_price: 3.99,
           reference3: 'ORDERREF3',
-          sales_source: 'eBay'
+          sales_source: 'eBay',
+          ship_date: '2021-04-20'
       },
       recipient: {
           company: 'Beard Supplies Co',
@@ -364,6 +366,7 @@ gift_message | No | Gift message
 channel_shipservice_name | No | A description of the shipping option chosen by the customer at order time
 currency_code | No | Specify the currency that this order has been paid in, must be a 3 letter currency code
 sales_source | No | Where the sale originated, eBay, Amazon, Shopify, Etsy, BigCommerce, OnBuy.
+ship_date | No | YYYY-MM-DD Important: To understand how this field is used, please refer to <a href="https://support.shiptheory.com/support/solutions/articles/24000067542-ship-date-usage-with-the-shiptheory-api" target="_blank">ship_date Usage</a>.
 recipient | |
 company | No | The recipient company name
 first name | Yes | First name of the receiver
@@ -581,7 +584,8 @@ echo $result;
 				"width": null,
 				"height": null,
 				"depth": null,
-        "channel_reference_id_3": "ORDERREF3"
+        			"channel_reference_id_3": "ORDERREF3",
+         		"ship_date": "2021-04-25T00:00:00+0000"
 			},
 			"delivery_address": {
 				"company": "Shiptheory",
@@ -626,7 +630,9 @@ echo $result;
 				"parcels": 1,
 				"width": null,
 				"height": null,
-				"depth": null
+				"depth": null,
+        			"channel_reference_id_3": "ORDERREF6",
+         		"ship_date": "2021-04-25T00:00:00+0000"
 			},
 			"delivery_address": {
 				"company": "Shiptheory",
@@ -669,7 +675,9 @@ echo $result;
 				"parcels": 1,
 				"width": null,
 				"height": null,
-				"depth": null
+				"depth": null,
+        			"channel_reference_id_3": "ORDERREF8",
+         		"ship_date": "2021-04-25T00:00:00+0000"
 			},
 			"delivery_address": {
 				"company": "Shiptheory",
@@ -808,7 +816,8 @@ echo $result;
 				"width": null,
 				"height": null,
 				"depth": null,
-        "channel_reference_id_3": "ORDERREF3"
+        			"channel_reference_id_3": "ORDERREF3",
+         		"ship_date": "2021-04-25T00:00:00+0000"
 			},
 			"delivery_address": {
 				"company": "Shiptheory",
@@ -887,7 +896,8 @@ echo $result;
 				"width": null,
 				"height": null,
 				"depth": null,
-        "channel_reference_id_3": "ORDERREF3"
+        			"channel_reference_id_3": "ORDERREF5",
+         		"ship_date": "2021-04-25T00:00:00+0000"
 			},
 			"delivery_address": {
 				"company": "Shiptheory",
@@ -964,7 +974,8 @@ echo $result;
 				"width": null,
 				"height": null,
 				"depth": null,
-        "channel_reference_id_3": "ORDERREF3"
+        			"channel_reference_id_3": "ORDERREF8",
+         		"ship_date": "2021-04-25T00:00:00+0000"
 			},
 			"delivery_address": {
 				"company": "Shiptheory",
