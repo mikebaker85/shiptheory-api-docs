@@ -173,7 +173,8 @@ $data = json_encode(
             "shipping_price" => 3.99,
             "reference3" => "ORDERREF3",
             "sales_source" => "eBay",
-            "ship_date": "2021-04-20"
+            "ship_date": "2021-04-20",
+            "rules_metadata": "custom string",
         ),
         "recipient" => array(
             "company" => "Beard Supplies Co",
@@ -268,7 +269,8 @@ var options = {
           shipping_price: 3.99,
           reference3: 'ORDERREF3',
           sales_source: 'eBay',
-          ship_date: '2021-04-20'
+          ship_date: '2021-04-20',
+          rules_metadata: 'custom string'
       },
       recipient: {
           company: 'Beard Supplies Co',
@@ -367,6 +369,7 @@ channel_shipservice_name | No | A description of the shipping option chosen by t
 currency_code | No | Specify the currency that this order has been paid in, must be a 3 letter currency code
 sales_source | No | Where the sale originated, eBay, Amazon, Shopify, Etsy, BigCommerce, OnBuy.
 ship_date | No | YYYY-MM-DD Important: To understand how this field is used, please refer to <a href="https://support.shiptheory.com/support/solutions/articles/24000067542-ship-date-usage-with-the-shiptheory-api" target="_blank">ship_date Usage</a>.
+rules_metadata | No | Custom free text field, max 50 characters. Useful to map shipping rules.
 recipient | |
 company | No | The recipient company name
 first name | Yes | First name of the receiver
