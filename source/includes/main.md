@@ -138,7 +138,7 @@ The authentication bearer token must be included in the header of all subsequent
 
 `Authorization: Bearer asd1AdiJKV1QiLCJhbGciOiJIUzI1NiJ9.dafMTasdsa..`
 
-To request an authentication bearer token, make a POST request, providing your Shiptheory email and password. 
+To request an authentication bearer token, make a POST request, providing your Shiptheory email and password.
 
 Make sure that the authentication request (and all subsequent requests) provide `application/json` under the `Accept` and `Content-Type` Headers.
 
@@ -175,6 +175,8 @@ $data = json_encode(
             "sales_source" => "eBay",
             "ship_date": "2021-04-20",
             "rules_metadata": "custom string",
+            "duty_tax_number": "IM123456789",
+            "duty_tax_number_type": "IOSS"
         ),
         "recipient" => array(
             "company" => "Beard Supplies Co",
@@ -270,7 +272,9 @@ var options = {
           reference3: 'ORDERREF3',
           sales_source: 'eBay',
           ship_date: '2021-04-20',
-          rules_metadata: 'custom string'
+          rules_metadata: 'custom string',
+          duty_tax_number: 'IM123456789',
+          duty_tax_number_type: 'IOSS'
       },
       recipient: {
           company: 'Beard Supplies Co',
@@ -370,6 +374,8 @@ currency_code | No | Specify the currency that this order has been paid in, must
 sales_source | No | Where the sale originated, eBay, Amazon, Shopify, Etsy, BigCommerce, OnBuy.
 ship_date | No | YYYY-MM-DD Important: To understand how this field is used, please refer to <a href="https://support.shiptheory.com/support/solutions/articles/24000067542-ship-date-usage-with-the-shiptheory-api" target="_blank">ship_date Usage</a>.
 rules_metadata | No | Custom free text field, max 50 characters. Useful to map shipping rules.
+duty_tax_number | No | Duty Tax number
+duty_tax_number_type | No | Duty Tax number type, one of (ABN, IOSS, IRD, OSS, VOEC)
 recipient | |
 company | No | The recipient company name
 first name | Yes | First name of the receiver
@@ -471,7 +477,9 @@ request.get('https://api.shiptheory.com/v1/shipments/S1234', {
     "status": "Complete",
     "tracking_number": "TT324201212GB",
     "carrier": "Royal Mail",
-    "channel_reference_id_3": "ORDERREF3"
+    "channel_reference_id_3": "ORDERREF3",
+    "duty_tax_number": "IM123456789",
+    "duty_tax_number_type": "IOSS"
   },
   "messages": [
     {
@@ -526,7 +534,7 @@ channel_reference_id_3 | A third non-unique reference
 created  | The datetime the shipment was created
 modified | The last datetime the shipment was updated
 status | The status of the shipment now. <a href="http://support.shiptheory.com/support/solutions/articles/12400-shiptheory-statuses-explained" target="_blank">See statuses</a>
-label | Shipping label, where available as a base64 encoded PDF 
+label | Shipping label, where available as a base64 encoded PDF
 messages | |
 message | Activity reported by Shiptheory
 created | Datetime of activity
@@ -537,7 +545,7 @@ type | Type of activity. Error, Info or Success
 
 ```php
 /*
- * The below example query lists for all Royal Mail shipments 
+ * The below example query lists for all Royal Mail shipments
  * created from BigCommerce on the 14th of November 2020
  */
 $query = "created=2020-11-14&Couriers.couriername=Royal Mail&channel_name=Bigcommerce";
@@ -587,8 +595,8 @@ echo $result;
 				"width": null,
 				"height": null,
 				"depth": null,
-        			"channel_reference_id_3": "ORDERREF3",
-         		"ship_date": "2021-04-25T00:00:00+0000"
+        "channel_reference_id_3": "ORDERREF3",
+        "ship_date": "2021-04-25T00:00:00+0000"
 			},
 			"delivery_address": {
 				"company": "Shiptheory",
@@ -727,12 +735,14 @@ Parameter | Required | Description
 created | No | YYYY-MM-DD. The shipment created date (the date the shipment was received by Shiptheory)
 modified | No | YYYY-MM-DD. The shipment last modified date (the date the shipment was last updated by Shiptheory).
 status | No | Options: *'Failed', 'Complete', 'Ready', 'Ignored', 'Not Ready', 'Print Error', 'Waiting', 'PROCESSING'*. Case sensitive. <a href="http://support.shiptheory.com/support/solutions/articles/12400-shiptheory-statuses-explained" target="_blank">Shiptheory Statuses Explained</a>.
-channel_name | No | The name of the sales channel in Shiptheory. For example: *Magento*. 
+channel_name | No | The name of the sales channel in Shiptheory. For example: *Magento*.
 channel_reference_id | No | Unique reference from the sales channel used when creating the shipment. This is usually the Shipment ID
 channel_reference_id_2 | No | A second sales channel reference. Usually Order ID
 ShipmentDetails.parcels | No | The number of *boxes* on a shipment
 ShipmentDetails.weight | No | The weight of the shipment
 ShipmentDetails.value | No | The monetary value of the shipment
+ShipmentDetails.duty_tax_number | No | Duty Tax number of a shipment
+ShipmentDetails.duty_tax_number_type | No | Duty Tax Number Type, one of ABN, IOSS, IRD, OSS, VOEC
 Couriers.couriername | No | Case sensitive carrier name. You can get valid carrier names from the <A href="https://shiptheory.com/developer/index.html#outgoing-services" target="_blank">GET Services Method</a>
 Countries.code | No | 3 Character country ISO code
 DeliveryAddress.address_line_1 | No | Delivery Address Line 1
@@ -741,10 +751,10 @@ DeliveryAddress.address_line_3 | No | Delivery Address Line 3
 DeliveryAddress.city | No | Delivery City
 DeliveryAddress.county | No | Delivery County/State
 DeliveryAddress.postcode | No | Delivery Postcode/Zipcode
-DeliveryAddress.telephone | No | Delivery Telephone Number 
+DeliveryAddress.telephone | No | Delivery Telephone Number
 DeliveryAddress.email | No | Delivery Email Address
 DeliveryAddress.company | No | Delivery Company Name
-DeliveryAddress.firstname | No | Delivery First Name 
+DeliveryAddress.firstname | No | Delivery First Name
 DeliveryAddress.lastname | No | Delivery Surname
 DeliveryAddress.tax_number | No | Tax number, or EORI number of the customer
 
@@ -1021,12 +1031,14 @@ created_to | Yes | YYYY-MM-DD. Date range end date. This is the shipment created
 limit | No | How many results to return? Allowed range is 1-100 shipments. Defaults to 25
 include_products | No | If set to "1", shipment product data will be attached to the response
 status | No | Options: *'Failed', 'Complete', 'Ready', 'Ignored', 'Not Ready', 'Print Error', 'Waiting', 'PROCESSING'*. Case sensitive. <a href="http://support.shiptheory.com/support/solutions/articles/12400-shiptheory-statuses-explained" target="_blank">Shiptheory Statuses Explained</a>.
-channel_name | No | The name of the sales channel in Shiptheory. For example: *Magento*. 
+channel_name | No | The name of the sales channel in Shiptheory. For example: *Magento*.
 channel_reference_id | No | Unique reference from the sales channel used when creating the shipment. This is usually the Shipment ID
 channel_reference_id_2 | No | A second sales channel reference. Usually Order ID
 ShipmentDetails.parcels | No | The number of *boxes* on a shipment
 ShipmentDetails.weight | No | The weight of the shipment
 ShipmentDetails.value | No | The monetary value of the shipment
+ShipmentDetails.duty_tax_number | No | Duty Tax number of a shipment
+ShipmentDetails.duty_tax_number_type | No | Duty Tax Number Type, one of ABN, IOSS, IRD, OSS, VOEC
 Couriers.couriername | No | Case sensitive carrier name. You can get valid carrier names from the <A href="https://shiptheory.com/developer/index.html#outgoing-services" target="_blank">GET Services Method</a>
 Countries.code | No | 3 Character country ISO code
 DeliveryAddress.address_line_1 | No | Delivery Address Line 1
@@ -1035,17 +1047,17 @@ DeliveryAddress.address_line_3 | No | Delivery Address Line 3
 DeliveryAddress.city | No | Delivery City
 DeliveryAddress.county | No | Delivery County/State
 DeliveryAddress.postcode | No | Delivery Postcode/Zipcode
-DeliveryAddress.telephone | No | Delivery Telephone Number 
+DeliveryAddress.telephone | No | Delivery Telephone Number
 DeliveryAddress.email | No | Delivery Email Address
 DeliveryAddress.company | No | Delivery Company Name
-DeliveryAddress.firstname | No | Delivery First Name 
+DeliveryAddress.firstname | No | Delivery First Name
 DeliveryAddress.lastname | No | Delivery Surname
 DeliveryAddress.tax_number | No | Tax number or EORI number of customer
 
 
 # Return Labels
 
-Currently, limited carriers support Returns within Shiptheory. 
+Currently, limited carriers support Returns within Shiptheory.
 
 See our list of <a href="http://support.shiptheory.com/support/solutions/articles/24000045115" target="_blank">Supported Returns Carriers</a> for more information.
 
@@ -1061,7 +1073,7 @@ Once you have set this, not passing the `delivery_service` parameter when making
 
 This method allows you to create a return label from an existing shipment. All of the address, order and product data will be taken automatically from the existing shipment.
 
-To make this call, you need to know the `Reference` and outgoing `Postcode` on the original shipment. 
+To make this call, you need to know the `Reference` and outgoing `Postcode` on the original shipment.
 
 A label and return tracking number will be returned, or an error message. While messages and errors are stored in the shipment history, the label will not be stored against the shipment, so you should save the label returned from the API. Subsequent calls to create a return label will produce a new label.
 
@@ -1738,9 +1750,9 @@ Field          | Description
 -------------- | -------  
 sku            | The SKU of the product size
 name           | Name given in to the product
-price          | Price 
-weight         | Weight 
-created	       | Date the product was first seen by Shiptheory 
+price          | Price
+weight         | Weight
+created	       | Date the product was first seen by Shiptheory
 modified	       | Date the product was last updated in Shiptheory  
 
 
@@ -1874,5 +1886,3 @@ commodity_composition | No | Commodity composition. Max 100 characters
 length | No | Product length. Between 0 and 9999999.99
 width | No | Product width. Between 0 and 9999999.99
 height | No | Product height. Between 0 and 9999999.99
-
-
