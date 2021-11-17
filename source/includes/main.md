@@ -17,7 +17,7 @@ If you are developing an application that will be used by more than 1 company, o
     'Accept: application/json',
     'Content-Type: application/json',
     'Content-Length: ' . strlen($data)),
-	'Shiptheory-Partner-Tag: ExamplePartner1'
+    'Shiptheory-Partner-Tag: ExamplePartner1'
 ];
 ```
 
@@ -35,9 +35,9 @@ Please contact Shiptheory support to obtain a partner tag. There is no charge fo
 Some API methods support pagination. A blue notice will show on the document for those that do. In the response data returned by methods that will support pagination, you will see pagination data as per the code panel to your right and described in the table below.
 
 Field            | Description
----------------- | -------  
-page             | Current page number      
-pages            | Total number of pages with results      
+---------------- | -------
+page             | Current page number
+pages            | Total number of pages with results
 results          | Total results across all pages
 results_per_page | Results per page
 limit            | Limit of results to return
@@ -49,9 +49,9 @@ For example: `https://api.shiptheory.com/v1/packages/sizes?sort=id&direction=des
 ### Pagination Parameters
 
 Parameter        | Description
----------------- | -------  
+---------------- | -------
 sort             | Field to sort data by. See method documentation for supported fields
-direction        | Ascending (asc) or Descending (desc)     
+direction        | Ascending (asc) or Descending (desc)
 page             | Page number to return. 404 means you have specified a page number without results
 limit            | Limit of results to return
 
@@ -124,9 +124,9 @@ request.post(options, function optionalCallback(err, httpResponse, body) {
 > The above code returns JSON structured like this:
 
 ```json
-{  
+{
    "success":true,
-   "data":{  
+   "data":{
       "token":"asd1AdiJKV1QiLCJhbGciOiJIUzI1NiJ9.dafMTasdsa..."
    }
 }
@@ -213,7 +213,7 @@ $data = json_encode(
                 "qty" => 2,
                 "value" => 49.99,
                 "weight" => 1
-            )            
+            )
         ),
         "packages" => array(
             array(
@@ -223,7 +223,7 @@ $data = json_encode(
             array(
                 "id" => 100001,
                 "weight" => 10
-            )            
+            )
         )
     )
 );
@@ -359,7 +359,8 @@ reference | Yes | Your unique reference for this shipment. We use this when a ca
 reference2 | Yes | A second non-unique reference
 delivery_service | No | The Shiptheory delivery service ID. See Delivery Services. If this is not provided or you pass a delivery service that does not exist, the shipment will be subject to any shipping rules setup on your account
 increment | No | Only supported alongside `delivery_service`, used when an account has multiple instances of the same carrier. See <a href="https://support.shiptheory.com/support/solutions/articles/24000060014-finding-your-carrier-increment" target="_blank">Finding Your Carrier Increment</a>
-shipment_detail | |
+| |
+**shipment_detail** | |
 weight | Yes | The weight of the shipment in kilograms, to three decimal places
 parcels | Yes | The number of boxes or labels as a full number
 value | Yes | The monetary shipment cost to the customer
@@ -376,7 +377,8 @@ ship_date | No | YYYY-MM-DD Important: To understand how this field is used, ple
 rules_metadata | No | Custom free text field, max 50 characters. Useful to map shipping rules.
 duty_tax_number | No | Duty Tax number
 duty_tax_number_type | No | Duty Tax number type, one of (ABN, IOSS, IRD, OSS, VOEC)
-recipient | |
+| |
+**recipient** | |
 company | No | The recipient company name
 first name | Yes | First name of the receiver
 last name | Yes | Last name of the receiver
@@ -390,8 +392,14 @@ postcode | Yes | The delivery postal or zip code
 telephone | No | Delivery contact telephone number
 mobile | No | Delivery contact mobile number
 email | No | Delivery contact email address
-tax_number | No | Tax number, or EORI number of the customer
-sender | | If not sent, defaults to your default shipping location
+tax_number | No | Tax number of the customer
+| |
+**tax_numbers** | No | Optional array of recipient tax numbers
+tax_number | Cond | Recipient tax number value. Required if tax_number_type is specified
+tax_number_type | Cond | "VAT" or "EORI". Required if tax_number is specified
+| |
+| |
+**sender** | | If not sent, defaults to your default shipping location
 company | No | The sender company name
 first name | Cond. | First name of the sender
 last name | Cond. | Last name of the sender
@@ -405,8 +413,9 @@ postcode | Cond. | The sender postal or zip code
 telephone | No | Sender contact telephone number
 mobile | No | Sender contact mobile number
 email | No | Sender contact email address
-tax_number | No | Tax number, or EORI number of the sender
-products | |
+tax_number | No | Tax number of the sender
+| |
+**products** | |
 name | Yes | Name of the product being sent
 sku | Yes | SKU of the product being sent
 qty | No | Quantity of the product being sent
@@ -415,7 +424,8 @@ weight | Yes | The weight of the product in kilograms, to three decimal places
 commodity_code  | No | UN Commodity Code, used for shipping internationally
 commodity_description | No | Commodity Description, used for shipping internationally
 commodity_manucountry | No | Country of Manufacture, used for shipping internationally
-packages | | Optional. See [Using Package Sizes](https://support.shiptheory.com/support/solutions/articles/24000026829-using-package-sizes)
+| |
+**packages** | | Optional. See [Using Package Sizes](https://support.shiptheory.com/support/solutions/articles/24000026829-using-package-sizes)
 id | Cond. | The ID of the Package. See [Package Sizes](https://shiptheory.com/developer/index.html#packages)
 weight | Cond. | Weight of the package, in Kg, to two decimal places
 
@@ -509,7 +519,7 @@ request.get('https://api.shiptheory.com/v1/shipments/S1234', {
 
 This endpoint retrieves the status, created and last modified datetime, tracking number and label data (where available) of an existing shipment.
 
-<aside class="notice">Shipping label PDF's are returned as a <code>base64 encoded string</code>.</aside>
+<aside class="notice">Shipping label PDFs are returned as a <code>base64 encoded string</code>.</aside>
 
 ### HTTP Request
 
@@ -527,7 +537,7 @@ Refer to the Errors section of the documentation for HTTP Error Codes used. Succ
 
 Parameter | Description
 --------- | -----------
-shipment | |
+**shipment** | |
 channel_reference_id | The unique reference used when creating the shipment. This is usually the Shipment ID or Order ID.
 channel_reference_id_2 | A second non-unique reference
 channel_reference_id_3 | A third non-unique reference
@@ -535,7 +545,8 @@ created  | The datetime the shipment was created
 modified | The last datetime the shipment was updated
 status | The status of the shipment now. <a href="http://support.shiptheory.com/support/solutions/articles/12400-shiptheory-statuses-explained" target="_blank">See statuses</a>
 label | Shipping label, where available as a base64 encoded PDF
-messages | |
+| |
+**messages** | |
 message | Activity reported by Shiptheory
 created | Datetime of activity
 type | Type of activity. Error, Info or Success
@@ -568,150 +579,150 @@ echo $result;
 
 ```json
 {
-	"shipments": [
-		{
-			"created": "2019-09-20T13:39:54+0000",
-			"modified": "2019-09-20T13:39:54+0000",
-			"channel_reference_id": "ST0000069",
-			"channel_reference_id_2": "ST0000064",
-			"channel_name": "Manual",
-			"status": "Failed",
-			"courier": {
-				"couriername": "Parcelforce"
-			},
-			"courierservice": {
-				"id": 24,
-				"serviceName": "express48"
-			},
-			"shipment_detail": {
-				"tracking_number": null,
-				"weight": 0.5,
-				"grams": 500,
-				"gift_message": "Happy birthday!",  
-				"instructions": "Please leave behind the gate",
-				"shipping_price": 3.99,
-				"value": 1,
-				"parcels": 1,
-				"width": null,
-				"height": null,
-				"depth": null,
+    "shipments": [
+        {
+            "created": "2019-09-20T13:39:54+0000",
+            "modified": "2019-09-20T13:39:54+0000",
+            "channel_reference_id": "ST0000069",
+            "channel_reference_id_2": "ST0000064",
+            "channel_name": "Manual",
+            "status": "Failed",
+            "courier": {
+                "couriername": "Parcelforce"
+            },
+            "courierservice": {
+                "id": 24,
+                "serviceName": "express48"
+            },
+            "shipment_detail": {
+                "tracking_number": null,
+                "weight": 0.5,
+                "grams": 500,
+                "gift_message": "Happy birthday!",
+                "instructions": "Please leave behind the gate",
+                "shipping_price": 3.99,
+                "value": 1,
+                "parcels": 1,
+                "width": null,
+                "height": null,
+                "depth": null,
         "channel_reference_id_3": "ORDERREF3",
         "ship_date": "2021-04-25T00:00:00+0000"
-			},
-			"delivery_address": {
-				"company": "Shiptheory",
-				"address_line_1": "20, Berkeley House",
-				"address_line_2": "Charlotte Street",
-				"address_line_3": null,
-				"city": "Bristol",
-				"county": "Somerset",
-				"postcode": "BA1 2WA",
-				"telephone": "0776666666",
-				"mobile": "",
-				"email": "test@test1.com",
-				"firstname": "Peter",
-				"lastname": "Pan",
-				"tax_number": null,
-				"country": {
-					"country": "United Kingdom",
-					"code": "GBR"
-				}
-			},
-			"latest_public_reference": null
-		},
-		{
-			"created": "2019-09-20T13:39:51+0000",
-			"modified": "2019-09-20T13:39:51+0000",
-			"channel_reference_id": "ST0000068",
-			"channel_reference_id_2": "ST0000064",
-			"channel_name": "Magento",
-			"status": "Failed",
-			"courier": {
-				"couriername": "FedEx"
-			},
-			"courierservice": null,
-			"shipment_detail": {
-				"tracking_number": null,
-				"weight": 0.5,
-				"grams": 500,
-				"shipping_price": null,
-				"gift_message": "Happy birthday!",  
-				"instructions": "Please leave behind the gate",
-				"value": 1,
-				"parcels": 1,
-				"width": null,
-				"height": null,
-				"depth": null,
-        			"channel_reference_id_3": "ORDERREF6",
-         		"ship_date": "2021-04-25T00:00:00+0000"
-			},
-			"delivery_address": {
-				"company": "Shiptheory",
-				"address_line_1": "20, Berkeley House",
-				"address_line_2": "Charlotte Street",
-				"address_line_3": null,
-				"city": "Bristol",
-				"county": "Somerset",
-				"postcode": "BA1 2WA",
-				"telephone": "0776666666",
-				"mobile": "",
-				"email": "test@test1.com",
-				"firstname": "Peter",
-				"lastname": "Pan",
-				"tax_number": null,
-				"country": {
-					"country": "United Kingdom",
-					"code": "GBR"
-				}
-			},
-			"latest_public_reference": null
-		},
-		{
-			"created": "2019-09-20T13:38:23+0000",
-			"modified": "2019-09-20T13:38:23+0000",
-			"channel_reference_id": "ST0000063",
-			"channel_reference_id_2": "ST0000063",
-			"channel_name": "TradeGecko",
-			"status": "Failed",
-			"courier": null,
-			"courierservice": null,
-			"shipment_detail": {
-				"tracking_number": null,
-				"weight": 0,
-				"value": 1,
-				"grams": 500,
-				"gift_message": "Happy birthday!",  
-				"instructions": "Please leave behind the gate",
-				"shipping_price": null,
-				"parcels": 1,
-				"width": null,
-				"height": null,
-				"depth": null,
-        			"channel_reference_id_3": "ORDERREF8",
-         		"ship_date": "2021-04-25T00:00:00+0000"
-			},
-			"delivery_address": {
-				"company": "Shiptheory",
-				"address_line_1": "20, Berkeley House",
-				"address_line_2": "Charlotte Street",
-				"address_line_3": null,
-				"city": "Bristol",
-				"county": "Somerset",
-				"postcode": "BA1 2WA",
-				"telephone": "0776666666",
-				"mobile": "",
-				"email": "test@test1.com",
-				"firstname": "Peter",
-				"lastname": "Pan",
-				"tax_number": null,
-				"country": {
-					"country": "United Kingdom",
-					"code": "GBR"
-				}
-			},
-			"latest_public_reference": null
-		}
-	],
+            },
+            "delivery_address": {
+                "company": "Shiptheory",
+                "address_line_1": "20, Berkeley House",
+                "address_line_2": "Charlotte Street",
+                "address_line_3": null,
+                "city": "Bristol",
+                "county": "Somerset",
+                "postcode": "BA1 2WA",
+                "telephone": "0776666666",
+                "mobile": "",
+                "email": "test@test1.com",
+                "firstname": "Peter",
+                "lastname": "Pan",
+                "tax_number": null,
+                "country": {
+                    "country": "United Kingdom",
+                    "code": "GBR"
+                }
+            },
+            "latest_public_reference": null
+        },
+        {
+            "created": "2019-09-20T13:39:51+0000",
+            "modified": "2019-09-20T13:39:51+0000",
+            "channel_reference_id": "ST0000068",
+            "channel_reference_id_2": "ST0000064",
+            "channel_name": "Magento",
+            "status": "Failed",
+            "courier": {
+                "couriername": "FedEx"
+            },
+            "courierservice": null,
+            "shipment_detail": {
+                "tracking_number": null,
+                "weight": 0.5,
+                "grams": 500,
+                "shipping_price": null,
+                "gift_message": "Happy birthday!",
+                "instructions": "Please leave behind the gate",
+                "value": 1,
+                "parcels": 1,
+                "width": null,
+                "height": null,
+                "depth": null,
+                    "channel_reference_id_3": "ORDERREF6",
+                 "ship_date": "2021-04-25T00:00:00+0000"
+            },
+            "delivery_address": {
+                "company": "Shiptheory",
+                "address_line_1": "20, Berkeley House",
+                "address_line_2": "Charlotte Street",
+                "address_line_3": null,
+                "city": "Bristol",
+                "county": "Somerset",
+                "postcode": "BA1 2WA",
+                "telephone": "0776666666",
+                "mobile": "",
+                "email": "test@test1.com",
+                "firstname": "Peter",
+                "lastname": "Pan",
+                "tax_number": null,
+                "country": {
+                    "country": "United Kingdom",
+                    "code": "GBR"
+                }
+            },
+            "latest_public_reference": null
+        },
+        {
+            "created": "2019-09-20T13:38:23+0000",
+            "modified": "2019-09-20T13:38:23+0000",
+            "channel_reference_id": "ST0000063",
+            "channel_reference_id_2": "ST0000063",
+            "channel_name": "TradeGecko",
+            "status": "Failed",
+            "courier": null,
+            "courierservice": null,
+            "shipment_detail": {
+                "tracking_number": null,
+                "weight": 0,
+                "value": 1,
+                "grams": 500,
+                "gift_message": "Happy birthday!",
+                "instructions": "Please leave behind the gate",
+                "shipping_price": null,
+                "parcels": 1,
+                "width": null,
+                "height": null,
+                "depth": null,
+                    "channel_reference_id_3": "ORDERREF8",
+                 "ship_date": "2021-04-25T00:00:00+0000"
+            },
+            "delivery_address": {
+                "company": "Shiptheory",
+                "address_line_1": "20, Berkeley House",
+                "address_line_2": "Charlotte Street",
+                "address_line_3": null,
+                "city": "Bristol",
+                "county": "Somerset",
+                "postcode": "BA1 2WA",
+                "telephone": "0776666666",
+                "mobile": "",
+                "email": "test@test1.com",
+                "firstname": "Peter",
+                "lastname": "Pan",
+                "tax_number": null,
+                "country": {
+                    "country": "United Kingdom",
+                    "code": "GBR"
+                }
+            },
+            "latest_public_reference": null
+        }
+    ],
   "pagination": {
     "page": 1,
     "pages": 1,
@@ -769,7 +780,7 @@ The following URL parameters can be used to `sort` the data:
 ### Sorting Parameters
 
 Field          | Description
--------------- | -------  
+-------------- | -------
 created        | The date the shipment was first received into Shiptheory
 modified       | The last date the shipment was modified in Shiptheory
 
@@ -802,217 +813,217 @@ echo $result;
 
 ```json
 {
-	"shipments": [
-		{
-			"created": "2019-09-20T13:39:54+0000",
-			"modified": "2019-09-20T13:39:54+0000",
-			"channel_reference_id": "ST0000069",
-			"channel_reference_id_2": "ST0000064",
-			"channel_name": "Manual",
-			"status": "Failed",
-			"courier": {
-				"couriername": "Parcelforce"
-			},
-			"courierservice": {
-				"id": 24,
-				"serviceName": "express48"
-			},
-			"shipment_detail": {
-				"tracking_number": null,
-				"weight": 0.5,
-				"value": 1,
-				"grams": 500,
-				"shipping_price": 3.99,
-				"gift_message": "Happy birthday!",  
-				"instructions": "Please leave behind the gate",
-				"parcels": 1,
-				"width": null,
-				"height": null,
-				"depth": null,
-        			"channel_reference_id_3": "ORDERREF3",
-         		"ship_date": "2021-04-25T00:00:00+0000"
-			},
-			"delivery_address": {
-				"company": "Shiptheory",
-				"address_line_1": "20, Berkeley House",
-				"address_line_2": "Charlotte Street",
-				"address_line_3": null,
-				"city": "Bristol",
-				"county": "Somerset",
-				"postcode": "BA1 2WA",
-				"telephone": "0776666666",
-				"mobile": "",
-				"email": "test@test1.com",
-				"firstname": "Peter",
-				"lastname": "Pan",
-				"tax_number": null,
-				"country": {
-					"country": "United Kingdom",
-					"code": "GBR"
-				}
-			},
-			"products": [
-				{
-					"qty": 2,
-					"sku": "20grammer",
-					"name": "20 gram product",
-					"value": "1.00",
-					"catalog_price": "1.00",
-					"barcode": null,
-					"weight": "0.02",
-					"grams": "200",
-					"length": "25",
-					"width": "25",
-					"height": "25",
-					"commodity_description": null,
-					"commodity_code": null,
-					"commodity_manucountry": null,
-					"commodity_composition": null
-				},
-				{
-					"qty": 20,
-					"sku": "cap1",
-					"name": "Baseball Cap",
-					"value": "4.00",
-					"weight": "11.00",
-					"length": "0",
-					"width": "0",
-					"height": "0",
-					"commodity_description": null,
-					"commodity_code": null,
-					"commodity_manucountry": null,
-					"commodity_composition": null
-				}
-			],
-			"latest_public_reference": null
-		},
-		{
-			"created": "2019-09-20T13:39:51+0000",
-			"modified": "2019-09-20T13:39:51+0000",
-			"channel_reference_id": "ST0000068",
-			"channel_reference_id_2": "ST0000064",
-			"channel_name": "Magento",
-			"status": "Failed",
-			"courier": {
-				"couriername": "FedEx"
-			},
-			"courierservice": null,
-			"shipment_detail": {
-				"tracking_number": null,
-				"weight": 0.5,
-				"value": 1,
-				"grams": 500,
-				"shipping_price": null,
-				"gift_message": "Happy birthday!",  
-				"instructions": "Please leave behind the gate",
-				"parcels": 1,
-				"width": null,
-				"height": null,
-				"depth": null,
-        			"channel_reference_id_3": "ORDERREF5",
-         		"ship_date": "2021-04-25T00:00:00+0000"
-			},
-			"delivery_address": {
-				"company": "Shiptheory",
-				"address_line_1": "20, Berkeley House",
-				"address_line_2": "Charlotte Street",
-				"address_line_3": null,
-				"city": "Bristol",
-				"county": "Somerset",
-				"postcode": "BA1 2WA",
-				"telephone": "0776666666",
-				"mobile": "",
-				"email": "test@test1.com",
-				"firstname": "Peter",
-				"lastname": "Pan",
-				"tax_number": null,
-				"country": {
-					"country": "United Kingdom",
-					"code": "GBR"
-				}
-			},
-			"products": [
-				{
-					"qty": 2,
-					"sku": "20grammer",
-					"name": "20 gram product",
-					"value": "1.00",
-					"catalog_price": "1.00",
-					"barcode": null,
-					"weight": "0.02",
-					"grams": "200",
-					"length": "25",
-					"width": "25",
-					"height": "25",
-					"commodity_description": null,
-					"commodity_code": null,
-					"commodity_manucountry": null,
-					"commodity_composition": null
-				},
-				{
-					"qty": 20,
-					"sku": "cap1",
-					"name": "Baseball Cap",
-					"value": "4.00",
-					"weight": "11.00",
-					"length": "0",
-					"width": "0",
-					"height": "0",
-					"commodity_description": null,
-					"commodity_code": null,
-					"commodity_manucountry": null,
-					"commodity_composition": null
-				}
-			],
-			"latest_public_reference": null
-		},
-		{
-			"created": "2019-09-20T13:38:23+0000",
-			"modified": "2019-09-20T13:38:23+0000",
-			"channel_reference_id": "ST0000063",
-			"channel_reference_id_2": "ST0000063",
-			"channel_name": "TradeGecko",
-			"status": "Failed",
-			"courier": null,
-			"courierservice": null,
-			"shipment_detail": {
-				"tracking_number": null,
-				"weight": 0,
-				"value": 1,
-				"grams": 500,
-				"shipping_price": 10,
-				"gift_message": "Happy birthday!",  
-				"instructions": "Please leave behind the gate",
-				"parcels": 1,
-				"width": null,
-				"height": null,
-				"depth": null,
-        			"channel_reference_id_3": "ORDERREF8",
-         		"ship_date": "2021-04-25T00:00:00+0000"
-			},
-			"delivery_address": {
-				"company": "Shiptheory",
-				"address_line_1": "20, Berkeley House",
-				"address_line_2": "Charlotte Street",
-				"address_line_3": null,
-				"city": "Bristol",
-				"county": "Somerset",
-				"postcode": "BA1 2WA",
-				"telephone": "0776666666",
-				"mobile": "",
-				"email": "test@test1.com",
-				"firstname": "Peter",
-				"lastname": "Pan",
-				"tax_number": null,
-				"country": {
-					"country": "United Kingdom",
-					"code": "GBR"
-				}
-			},
-			"products": [],
-			"latest_public_reference": null
-		}
-	]
+    "shipments": [
+        {
+            "created": "2019-09-20T13:39:54+0000",
+            "modified": "2019-09-20T13:39:54+0000",
+            "channel_reference_id": "ST0000069",
+            "channel_reference_id_2": "ST0000064",
+            "channel_name": "Manual",
+            "status": "Failed",
+            "courier": {
+                "couriername": "Parcelforce"
+            },
+            "courierservice": {
+                "id": 24,
+                "serviceName": "express48"
+            },
+            "shipment_detail": {
+                "tracking_number": null,
+                "weight": 0.5,
+                "value": 1,
+                "grams": 500,
+                "shipping_price": 3.99,
+                "gift_message": "Happy birthday!",
+                "instructions": "Please leave behind the gate",
+                "parcels": 1,
+                "width": null,
+                "height": null,
+                "depth": null,
+                    "channel_reference_id_3": "ORDERREF3",
+                 "ship_date": "2021-04-25T00:00:00+0000"
+            },
+            "delivery_address": {
+                "company": "Shiptheory",
+                "address_line_1": "20, Berkeley House",
+                "address_line_2": "Charlotte Street",
+                "address_line_3": null,
+                "city": "Bristol",
+                "county": "Somerset",
+                "postcode": "BA1 2WA",
+                "telephone": "0776666666",
+                "mobile": "",
+                "email": "test@test1.com",
+                "firstname": "Peter",
+                "lastname": "Pan",
+                "tax_number": null,
+                "country": {
+                    "country": "United Kingdom",
+                    "code": "GBR"
+                }
+            },
+            "products": [
+                {
+                    "qty": 2,
+                    "sku": "20grammer",
+                    "name": "20 gram product",
+                    "value": "1.00",
+                    "catalog_price": "1.00",
+                    "barcode": null,
+                    "weight": "0.02",
+                    "grams": "200",
+                    "length": "25",
+                    "width": "25",
+                    "height": "25",
+                    "commodity_description": null,
+                    "commodity_code": null,
+                    "commodity_manucountry": null,
+                    "commodity_composition": null
+                },
+                {
+                    "qty": 20,
+                    "sku": "cap1",
+                    "name": "Baseball Cap",
+                    "value": "4.00",
+                    "weight": "11.00",
+                    "length": "0",
+                    "width": "0",
+                    "height": "0",
+                    "commodity_description": null,
+                    "commodity_code": null,
+                    "commodity_manucountry": null,
+                    "commodity_composition": null
+                }
+            ],
+            "latest_public_reference": null
+        },
+        {
+            "created": "2019-09-20T13:39:51+0000",
+            "modified": "2019-09-20T13:39:51+0000",
+            "channel_reference_id": "ST0000068",
+            "channel_reference_id_2": "ST0000064",
+            "channel_name": "Magento",
+            "status": "Failed",
+            "courier": {
+                "couriername": "FedEx"
+            },
+            "courierservice": null,
+            "shipment_detail": {
+                "tracking_number": null,
+                "weight": 0.5,
+                "value": 1,
+                "grams": 500,
+                "shipping_price": null,
+                "gift_message": "Happy birthday!",
+                "instructions": "Please leave behind the gate",
+                "parcels": 1,
+                "width": null,
+                "height": null,
+                "depth": null,
+                    "channel_reference_id_3": "ORDERREF5",
+                 "ship_date": "2021-04-25T00:00:00+0000"
+            },
+            "delivery_address": {
+                "company": "Shiptheory",
+                "address_line_1": "20, Berkeley House",
+                "address_line_2": "Charlotte Street",
+                "address_line_3": null,
+                "city": "Bristol",
+                "county": "Somerset",
+                "postcode": "BA1 2WA",
+                "telephone": "0776666666",
+                "mobile": "",
+                "email": "test@test1.com",
+                "firstname": "Peter",
+                "lastname": "Pan",
+                "tax_number": null,
+                "country": {
+                    "country": "United Kingdom",
+                    "code": "GBR"
+                }
+            },
+            "products": [
+                {
+                    "qty": 2,
+                    "sku": "20grammer",
+                    "name": "20 gram product",
+                    "value": "1.00",
+                    "catalog_price": "1.00",
+                    "barcode": null,
+                    "weight": "0.02",
+                    "grams": "200",
+                    "length": "25",
+                    "width": "25",
+                    "height": "25",
+                    "commodity_description": null,
+                    "commodity_code": null,
+                    "commodity_manucountry": null,
+                    "commodity_composition": null
+                },
+                {
+                    "qty": 20,
+                    "sku": "cap1",
+                    "name": "Baseball Cap",
+                    "value": "4.00",
+                    "weight": "11.00",
+                    "length": "0",
+                    "width": "0",
+                    "height": "0",
+                    "commodity_description": null,
+                    "commodity_code": null,
+                    "commodity_manucountry": null,
+                    "commodity_composition": null
+                }
+            ],
+            "latest_public_reference": null
+        },
+        {
+            "created": "2019-09-20T13:38:23+0000",
+            "modified": "2019-09-20T13:38:23+0000",
+            "channel_reference_id": "ST0000063",
+            "channel_reference_id_2": "ST0000063",
+            "channel_name": "TradeGecko",
+            "status": "Failed",
+            "courier": null,
+            "courierservice": null,
+            "shipment_detail": {
+                "tracking_number": null,
+                "weight": 0,
+                "value": 1,
+                "grams": 500,
+                "shipping_price": 10,
+                "gift_message": "Happy birthday!",
+                "instructions": "Please leave behind the gate",
+                "parcels": 1,
+                "width": null,
+                "height": null,
+                "depth": null,
+                    "channel_reference_id_3": "ORDERREF8",
+                 "ship_date": "2021-04-25T00:00:00+0000"
+            },
+            "delivery_address": {
+                "company": "Shiptheory",
+                "address_line_1": "20, Berkeley House",
+                "address_line_2": "Charlotte Street",
+                "address_line_3": null,
+                "city": "Bristol",
+                "county": "Somerset",
+                "postcode": "BA1 2WA",
+                "telephone": "0776666666",
+                "mobile": "",
+                "email": "test@test1.com",
+                "firstname": "Peter",
+                "lastname": "Pan",
+                "tax_number": null,
+                "country": {
+                    "country": "United Kingdom",
+                    "code": "GBR"
+                }
+            },
+            "products": [],
+            "latest_public_reference": null
+        }
+    ]
 }
 ```
 
@@ -1296,24 +1307,24 @@ request.get('https://api.shiptheory.com/v1/services/incoming', {
 
 ```json
 {
-	"return_services": {
-		"Royal Mail": [
-			{
-				"name": "Tracked 48 Returns",
-				"id": 100
-			},
-			{
-				"name": "Tracked 24 Returns",
-				"id": 200
-			}
-		],
-		"InPost": [
-			{
-				"name": "InPost Medium Locker Return",
-				"id": 300
-			}
-		]
-	}
+    "return_services": {
+        "Royal Mail": [
+            {
+                "name": "Tracked 48 Returns",
+                "id": 100
+            },
+            {
+                "name": "Tracked 24 Returns",
+                "id": 200
+            }
+        ],
+        "InPost": [
+            {
+                "name": "InPost Medium Locker Return",
+                "id": 300
+            }
+        ]
+    }
 }
 ```
 
@@ -1426,13 +1437,13 @@ The following URL parameters can be used to `sort` the data:
 ### Sorting Parameters
 
 Field          | Description
--------------- | -------  
+-------------- | -------
 id             | The ID of the package size, to use in the Book Shipment request
 name           | Name given in the UI to the package size
 length         | Length specified in the UI
 width          | Width specified in the UI
-height	       | Height specified in the UI
-active	       | Enabled or disabled in the UI
+height         | Height specified in the UI
+active         | Enabled or disabled in the UI
 
 
 
@@ -1747,13 +1758,13 @@ The following URL parameters can be used to `sort` the data:
 ### Sorting Parameters
 
 Field          | Description
--------------- | -------  
+-------------- | -------
 sku            | The SKU of the product size
 name           | Name given in to the product
 price          | Price
 weight         | Weight
-created	       | Date the product was first seen by Shiptheory
-modified	       | Date the product was last updated in Shiptheory  
+created        | Date the product was first seen by Shiptheory
+modified       | Date the product was last updated in Shiptheory
 
 
 ## Update Product
