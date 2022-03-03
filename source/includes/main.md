@@ -187,7 +187,8 @@ $data = json_encode(
             "postcode" => "bs2 3ap",
             "telephone": "01171231234",
             "country" => "GB",
-            "tax_number" => "GB123456"
+            "tax_number" => "GB123456",
+            "what_3_words" => "///what.three.words"
         ),
         "sender" => array(
             "company" => "Hair Wholesaler Co.",
@@ -285,7 +286,8 @@ var options = {
           postcode: 'BS2 3AP',
           telephone: '01161231245',
           country: 'GB',
-          tax_number: 'GB123456'
+          tax_number: 'GB123456',
+          what_3_words: "///what.three.words"
       },
       sender: {
           company: 'Hair Wholersaler Co.',
@@ -393,6 +395,7 @@ telephone | No | Delivery contact telephone number
 mobile | No | Delivery contact mobile number
 email | No | Delivery contact email address
 tax_number | No | Tax number of the customer
+what_3_words | No | A What3Words address formatted like: ///what.three.words
 | |
 **tax_numbers** | No | Optional array of recipient tax numbers
 tax_number | Cond | Recipient tax number value. Required if tax_number_type is specified
