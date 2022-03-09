@@ -626,6 +626,7 @@ echo $result;
                 "firstname": "Peter",
                 "lastname": "Pan",
                 "tax_number": null,
+                "what_3_words": "///what.three.words",
                 "country": {
                     "country": "United Kingdom",
                     "code": "GBR"
@@ -771,6 +772,7 @@ DeliveryAddress.company | No | Delivery Company Name
 DeliveryAddress.firstname | No | Delivery First Name
 DeliveryAddress.lastname | No | Delivery Surname
 DeliveryAddress.tax_number | No | Tax number, or EORI number of the customer
+DeliveryAddress.what_3_words | No | A What3Words address formatted like: ///what.three.words
 
 <aside class="notice">
 This method supports paging. See [How to use paging](https://shiptheory.com/developer/index.html#pagination).
@@ -940,6 +942,7 @@ echo $result;
                 "firstname": "Peter",
                 "lastname": "Pan",
                 "tax_number": null,
+                "what_3_words": "///what.three.words",
                 "country": {
                     "country": "United Kingdom",
                     "code": "GBR"
@@ -1067,6 +1070,7 @@ DeliveryAddress.company | No | Delivery Company Name
 DeliveryAddress.firstname | No | Delivery First Name
 DeliveryAddress.lastname | No | Delivery Surname
 DeliveryAddress.tax_number | No | Tax number or EORI number of customer
+DeliveryAddress.what_3_words | No | A What3Words address formatted like: ///what.three.words
 
 
 # Return Labels
