@@ -187,7 +187,8 @@ $data = json_encode(
             "postcode" => "bs2 3ap",
             "telephone": "01171231234",
             "country" => "GB",
-            "tax_number" => "GB123456"
+            "tax_number" => "GB123456",
+            "what3words" => "///what.three.words"
         ),
         "sender" => array(
             "company" => "Hair Wholesaler Co.",
@@ -285,7 +286,8 @@ var options = {
           postcode: 'BS2 3AP',
           telephone: '01161231245',
           country: 'GB',
-          tax_number: 'GB123456'
+          tax_number: 'GB123456',
+          what3words: "///what.three.words"
       },
       sender: {
           company: 'Hair Wholersaler Co.',
@@ -393,6 +395,7 @@ telephone | No | Delivery contact telephone number
 mobile | No | Delivery contact mobile number
 email | No | Delivery contact email address
 tax_number | No | Tax number of the customer
+what3words | No | A What3Words address formatted like: ///what.three.words
 | |
 **tax_numbers** | No | Optional array of recipient tax numbers
 tax_number | Cond | Recipient tax number value. Required if tax_number_type is specified
@@ -623,6 +626,7 @@ echo $result;
                 "firstname": "Peter",
                 "lastname": "Pan",
                 "tax_number": null,
+                "what_3_words": "///what.three.words",
                 "country": {
                     "country": "United Kingdom",
                     "code": "GBR"
@@ -768,6 +772,7 @@ DeliveryAddress.company | No | Delivery Company Name
 DeliveryAddress.firstname | No | Delivery First Name
 DeliveryAddress.lastname | No | Delivery Surname
 DeliveryAddress.tax_number | No | Tax number, or EORI number of the customer
+DeliveryAddress.what_3_words | No | A What3Words address formatted like: ///what.three.words
 
 <aside class="notice">
 This method supports paging. See [How to use paging](https://shiptheory.com/developer/index.html#pagination).
@@ -937,6 +942,7 @@ echo $result;
                 "firstname": "Peter",
                 "lastname": "Pan",
                 "tax_number": null,
+                "what_3_words": "///what.three.words",
                 "country": {
                     "country": "United Kingdom",
                     "code": "GBR"
@@ -1064,6 +1070,7 @@ DeliveryAddress.company | No | Delivery Company Name
 DeliveryAddress.firstname | No | Delivery First Name
 DeliveryAddress.lastname | No | Delivery Surname
 DeliveryAddress.tax_number | No | Tax number or EORI number of customer
+DeliveryAddress.what_3_words | No | A What3Words address formatted like: ///what.three.words
 
 
 # Return Labels
