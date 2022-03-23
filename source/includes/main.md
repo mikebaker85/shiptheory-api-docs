@@ -399,7 +399,7 @@ what3words | No | A What3Words address formatted like: ///what.three.words
 | |
 **tax_numbers** | No | Optional array of recipient tax numbers
 tax_number | Cond | Recipient tax number value. Required if tax_number_type is specified
-tax_number_type | Cond | "VAT" or "EORI". Required if tax_number is specified
+tax_number_type | Cond | "VAT", "EORI" or "PID". Required if tax_number is specified
 | |
 | |
 **sender** | | If not sent, defaults to your default shipping location
