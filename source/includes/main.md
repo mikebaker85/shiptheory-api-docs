@@ -1907,7 +1907,7 @@ height | No | Product height. Between 0 and 9999999.99
 
 # Unofficial SDKS
 
-Below is a list of SDKs which we think you can use to aid your development with the Shiptheory API. 
+Below is a list of SDKs which we think could be useful for your development with the Shiptheory API. 
 These have not been developed by Shiptheory and therefore Shiptheory does not take any responsibilities for any issues and bugs which may arise. 
 
 ## Shiptheory PHP API Client
