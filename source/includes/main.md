@@ -1913,6 +1913,6 @@ These have not been developed by Shiptheory and therefore Shiptheory does not ta
 ## Shiptheory PHP API Client
 A PHP library which can be used to make requests to the Shiptheory API
 
-Github: https://github.com/DanRVP/shiptheory-php
-Packagist: https://packagist.org/packages/dan-rogers/shiptheory-php
-Documentation: https://github.com/DanRVP/shiptheory-php/wiki
+- Github: https://github.com/DanRVP/shiptheory-php
+- Packagist: https://packagist.org/packages/dan-rogers/shiptheory-php
+- Documentation: https://github.com/DanRVP/shiptheory-php/wiki
