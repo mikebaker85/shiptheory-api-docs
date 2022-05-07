@@ -1904,3 +1904,15 @@ commodity_composition | No | Commodity composition. Max 100 characters
 length | No | Product length. Between 0 and 9999999.99
 width | No | Product width. Between 0 and 9999999.99
 height | No | Product height. Between 0 and 9999999.99
+
+# Unofficial SDKS
+
+Below is a list of SDKs which we think you can use to aid your development with the Shiptheory API. 
+These have not been developed by Shiptheory and therefore Shiptheory does not take any responsibilities for any issues and bugs which may arise. 
+
+## Shiptheory PHP API Client
+A PHP library which can be used to make requests to the Shiptheory API
+
+Github: https://github.com/DanRVP/shiptheory-php
+Packagist: https://packagist.org/packages/dan-rogers/shiptheory-php
+Documentation: https://github.com/DanRVP/shiptheory-php/wiki
