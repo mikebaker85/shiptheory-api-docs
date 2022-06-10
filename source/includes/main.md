@@ -399,7 +399,7 @@ what3words | No | A What3Words address formatted like: ///what.three.words
 | |
 **tax_numbers** | No | Optional array of recipient tax numbers
 tax_number | Cond | Recipient tax number value. Required if tax_number_type is specified
-tax_number_type | Cond | "VAT" or "EORI". Required if tax_number is specified
+tax_number_type | Cond | "VAT", "EORI" or "PID". Required if tax_number is specified
 | |
 | |
 **sender** | | If not sent, defaults to your default shipping location
@@ -1904,3 +1904,15 @@ commodity_composition | No | Commodity composition. Max 100 characters
 length | No | Product length. Between 0 and 9999999.99
 width | No | Product width. Between 0 and 9999999.99
 height | No | Product height. Between 0 and 9999999.99
+
+# Unofficial SDKS
+
+Below is a list of SDKs which we think could be useful for your development with the Shiptheory API. 
+These have not been developed by Shiptheory and therefore Shiptheory does not take any responsibilities for any issues and bugs which may arise. 
+
+## Shiptheory PHP API Client
+A PHP library which can be used to make requests to the Shiptheory API
+
+- Github: https://github.com/DanRVP/shiptheory-php
+- Packagist: https://packagist.org/packages/dan-rogers/shiptheory-php
+- Documentation: https://github.com/DanRVP/shiptheory-php/wiki
