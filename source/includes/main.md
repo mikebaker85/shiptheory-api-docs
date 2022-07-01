@@ -1325,9 +1325,6 @@ request.get('https://api.shiptheory.com/v1/services/incoming', {
                 "upper_length_limit": 0,
                 "upper_width_limit": 0,
                 "upper_height_limit": 0,
-                "courier": {
-                    "couriername": "DPD"
-                },
                 "incoming_countries": [
                     "GB",
                     "US"
@@ -1348,9 +1345,6 @@ request.get('https://api.shiptheory.com/v1/services/incoming', {
                 "upper_length_limit": 0,
                 "upper_width_limit": 0,
                 "upper_height_limit": 0,
-                "courier": {
-                    "couriername": "Royal Mail"
-                },
                 "incoming_countries": [
                     "TG",
                     "TK"
