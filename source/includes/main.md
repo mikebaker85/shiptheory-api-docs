@@ -1318,7 +1318,6 @@ request.get('https://api.shiptheory.com/v1/services/incoming', {
         "DPD": [
             {
                 "id": 7,
-                "code": "1^22",
                 "name": "Return to Shop",
                 "collection_or_dropoff": "collection",
                 "upper_limit_weight": 0,
@@ -1338,7 +1337,6 @@ request.get('https://api.shiptheory.com/v1/services/incoming', {
         "Royal Mail": [
             {
                 "id": 1,
-                "code": "TSN",
                 "name": "Tracked 24 Returns",
                 "collection_or_dropoff": "collection",
                 "upper_limit_weight": 0,
