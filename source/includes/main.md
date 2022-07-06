@@ -758,6 +758,7 @@ ShipmentDetails.weight | No | The weight of the shipment
 ShipmentDetails.value | No | The monetary value of the shipment
 ShipmentDetails.duty_tax_number | No | Duty Tax number of a shipment
 ShipmentDetails.duty_tax_number_type | No | Duty Tax Number Type, one of ABN, IOSS, IRD, OSS, VOEC
+ShipmentDetails.channel_reference_id_3 | No | A third sales channel reference
 Couriers.couriername | No | Case sensitive carrier name. You can get valid carrier names from the <A href="https://shiptheory.com/developer/index.html#outgoing-services" target="_blank">GET Services Method</a>
 Countries.code | No | 3 Character country ISO code
 DeliveryAddress.address_line_1 | No | Delivery Address Line 1
@@ -1056,6 +1057,7 @@ ShipmentDetails.weight | No | The weight of the shipment
 ShipmentDetails.value | No | The monetary value of the shipment
 ShipmentDetails.duty_tax_number | No | Duty Tax number of a shipment
 ShipmentDetails.duty_tax_number_type | No | Duty Tax Number Type, one of ABN, IOSS, IRD, OSS, VOEC
+ShipmentDetails.channel_reference_id_3 | No | A third sales channel reference
 Couriers.couriername | No | Case sensitive carrier name. You can get valid carrier names from the <A href="https://shiptheory.com/developer/index.html#outgoing-services" target="_blank">GET Services Method</a>
 Countries.code | No | 3 Character country ISO code
 DeliveryAddress.address_line_1 | No | Delivery Address Line 1
