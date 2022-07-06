@@ -1315,20 +1315,42 @@ request.get('https://api.shiptheory.com/v1/services/incoming', {
 ```json
 {
     "return_services": {
-        "Royal Mail": [
+        "DPD": [
             {
-                "name": "Tracked 48 Returns",
-                "id": 100
-            },
-            {
-                "name": "Tracked 24 Returns",
-                "id": 200
+                "id": 7,
+                "name": "Return to Shop",
+                "collection_or_dropoff": "collection",
+                "upper_limit_weight": 0,
+                "upper_length_limit": 0,
+                "upper_width_limit": 0,
+                "upper_height_limit": 0,
+                "incoming_countries": [
+                    "GB",
+                    "US"
+                ],
+                "outgoing_countries": [
+                    "UG",
+                    "UA"
+                ]
             }
         ],
-        "InPost": [
+        "Royal Mail": [
             {
-                "name": "InPost Medium Locker Return",
-                "id": 300
+                "id": 1,
+                "name": "Tracked 24 Returns",
+                "collection_or_dropoff": "collection",
+                "upper_limit_weight": 0,
+                "upper_length_limit": 0,
+                "upper_width_limit": 0,
+                "upper_height_limit": 0,
+                "incoming_countries": [
+                    "TG",
+                    "TK"
+                ],
+                "outgoing_countries": [
+                    "TG",
+                    "TK"
+                ]
             }
         ]
     }
