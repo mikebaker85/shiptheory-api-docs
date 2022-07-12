@@ -1616,6 +1616,7 @@ commodity_composition | No | Commodity composition. Max 100 characters
 length | No | Product length. Between 0 and 9999999.99
 width | No | Product width. Between 0 and 9999999.99
 height | No | Product height. Between 0 and 9999999.99
+thumbnail_url | No | Thumbmail Url with jpg, jpeg, png, webp extension. Max 200 characters
 
 ## View Product
 
@@ -1670,6 +1671,7 @@ request.get('https://api.shiptheory.com/v1/products/view/hat1', {
     "length": 10,
     "width": 10,
     "height": 5,
+    "thumbnail_url": "https://www.doan.com/image.jpg",
     "created": "2020-11-23T00:00:00+0000",
     "modified": "2020-11-23T00:00:00+0000"
   }
@@ -1740,6 +1742,7 @@ request.get('https://api.shiptheory.com/v1/products', {
       "length": 0,
       "width": 0,
       "height": 0,
+      "thumbnail_url": "http://www.someshop.com/image1.jpg",
       "created": "2020-11-23T00:00:00+0000",
       "modified": "2020-11-23T00:00:00+0000"
     },
@@ -1756,6 +1759,7 @@ request.get('https://api.shiptheory.com/v1/products', {
       "length": 0,
       "width": 0,
       "height": 0,
+      "thumbnail_url": "http://www.someshop.com/image2.jpg",
       "created": "2020-11-23T00:00:00+0000",
       "modified": "2020-11-23T00:00:00+0000"
     }
@@ -1812,7 +1816,8 @@ $data = json_encode(
         "commodity_description" => "Ladies hat 90% cotton 20% mixed",
         "commodity_manucountry" => "GBR",
         "commodity_composition" => "Cotton",
-        "barcode" => "ABC123123"
+        "barcode" => "ABC123123",
+        "thumbnail_url"=> "http://www.someshop.com/image1.jpg"
     )
 );
 
@@ -1860,6 +1865,7 @@ var options = {
       commodity_manucountry: 'GBR',
       commodity_composition: 'Cotton',
       barcode: 'ABC123123',
+      thumbnail_url: "http://www.someshop.com/image1.jpg"
     }
 };
 
@@ -1887,7 +1893,13 @@ request.post(options, function optionalCallback(err, httpResponse, body) {
     "commodity_manucountry": "GBR",
     "commodity_composition": "Cotton",
     "created": "2020-11-23T14:05:02+0000",
-    "modified": "2020-11-23T14:05:02+0000"
+    "modified": "2020-11-23T14:05:02+0000",
+    "length": 1,
+    "width": 1,
+    "height": 1,
+    "volume": 0.5,
+    "commodity_composition": "",
+    "thumbnail_url": "http://www.someshop.com/image1.jpg"
   }
 }
 ```
@@ -1928,6 +1940,7 @@ commodity_composition | No | Commodity composition. Max 100 characters
 length | No | Product length. Between 0 and 9999999.99
 width | No | Product width. Between 0 and 9999999.99
 height | No | Product height. Between 0 and 9999999.99
+thumbnail_url | No | Thumbmail Url with jpg, jpeg, png, webp extension. Max 200 characters
 
 # Unofficial SDKS
 
