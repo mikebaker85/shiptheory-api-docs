@@ -763,6 +763,7 @@ ShipmentDetails.weight | No | The weight of the shipment
 ShipmentDetails.value | No | The monetary value of the shipment
 ShipmentDetails.duty_tax_number | No | Duty Tax number of a shipment
 ShipmentDetails.duty_tax_number_type | No | Duty Tax Number Type, one of ABN, IOSS, IRD, OSS, VOEC
+ShipmentDetails.channel_reference_id_3 | No | A third sales channel reference
 Couriers.couriername | No | Case sensitive carrier name. You can get valid carrier names from the <A href="https://shiptheory.com/developer/index.html#outgoing-services" target="_blank">GET Services Method</a>
 Countries.code | No | 3 Character country ISO code
 DeliveryAddress.address_line_1 | No | Delivery Address Line 1
@@ -1061,6 +1062,7 @@ ShipmentDetails.weight | No | The weight of the shipment
 ShipmentDetails.value | No | The monetary value of the shipment
 ShipmentDetails.duty_tax_number | No | Duty Tax number of a shipment
 ShipmentDetails.duty_tax_number_type | No | Duty Tax Number Type, one of ABN, IOSS, IRD, OSS, VOEC
+ShipmentDetails.channel_reference_id_3 | No | A third sales channel reference
 Couriers.couriername | No | Case sensitive carrier name. You can get valid carrier names from the <A href="https://shiptheory.com/developer/index.html#outgoing-services" target="_blank">GET Services Method</a>
 Countries.code | No | 3 Character country ISO code
 DeliveryAddress.address_line_1 | No | Delivery Address Line 1
@@ -1320,20 +1322,42 @@ request.get('https://api.shiptheory.com/v1/services/incoming', {
 ```json
 {
     "return_services": {
-        "Royal Mail": [
+        "DPD": [
             {
-                "name": "Tracked 48 Returns",
-                "id": 100
-            },
-            {
-                "name": "Tracked 24 Returns",
-                "id": 200
+                "id": 7,
+                "name": "Return to Shop",
+                "collection_or_dropoff": "collection",
+                "upper_limit_weight": 0,
+                "upper_length_limit": 0,
+                "upper_width_limit": 0,
+                "upper_height_limit": 0,
+                "incoming_countries": [
+                    "GB",
+                    "US"
+                ],
+                "outgoing_countries": [
+                    "UG",
+                    "UA"
+                ]
             }
         ],
-        "InPost": [
+        "Royal Mail": [
             {
-                "name": "InPost Medium Locker Return",
-                "id": 300
+                "id": 1,
+                "name": "Tracked 24 Returns",
+                "collection_or_dropoff": "collection",
+                "upper_limit_weight": 0,
+                "upper_length_limit": 0,
+                "upper_width_limit": 0,
+                "upper_height_limit": 0,
+                "incoming_countries": [
+                    "TG",
+                    "TK"
+                ],
+                "outgoing_countries": [
+                    "TG",
+                    "TK"
+                ]
             }
         ]
     }
@@ -1601,6 +1625,7 @@ length | No | Product length. Between 0 and 9999999.99
 width | No | Product width. Between 0 and 9999999.99
 height | No | Product height. Between 0 and 9999999.99
 mid_code | No| Manufacturer's Identification Code | Max 25 characters
+thumbnail_url | No | Thumbmail Url with jpg, jpeg, png, webp extension. Max 200 characters
 
 ## View Product
 
@@ -1655,6 +1680,7 @@ request.get('https://api.shiptheory.com/v1/products/view/hat1', {
     "length": 10,
     "width": 10,
     "height": 5,
+    "thumbnail_url": "https://www.doan.com/image.jpg",
     "created": "2020-11-23T00:00:00+0000",
     "modified": "2020-11-23T00:00:00+0000"
   }
@@ -1725,6 +1751,7 @@ request.get('https://api.shiptheory.com/v1/products', {
       "length": 0,
       "width": 0,
       "height": 0,
+      "thumbnail_url": "http://www.someshop.com/image1.jpg",
       "created": "2020-11-23T00:00:00+0000",
       "modified": "2020-11-23T00:00:00+0000"
     },
@@ -1741,6 +1768,7 @@ request.get('https://api.shiptheory.com/v1/products', {
       "length": 0,
       "width": 0,
       "height": 0,
+      "thumbnail_url": "http://www.someshop.com/image2.jpg",
       "created": "2020-11-23T00:00:00+0000",
       "modified": "2020-11-23T00:00:00+0000"
     }
@@ -1799,6 +1827,7 @@ $data = json_encode(
         "commodity_composition" => "Cotton",
         "barcode" => "ABC123123",
         "mid_code": "AUOZR92MEL",
+        "thumbnail_url"=> "http://www.someshop.com/image1.jpg"
     )
 );
 
@@ -1847,6 +1876,7 @@ var options = {
       commodity_composition: 'Cotton',
       barcode: 'ABC123123',
       mid_code: 'AUOZR92MEL'
+      thumbnail_url: "http://www.someshop.com/image1.jpg"
     }
 };
 
@@ -1875,7 +1905,13 @@ request.post(options, function optionalCallback(err, httpResponse, body) {
     "commodity_composition": "Cotton",
     "mid_code": "AUOZR92MEL",
     "created": "2020-11-23T14:05:02+0000",
-    "modified": "2020-11-23T14:05:02+0000"
+    "modified": "2020-11-23T14:05:02+0000",
+    "length": 1,
+    "width": 1,
+    "height": 1,
+    "volume": 0.5,
+    "commodity_composition": "",
+    "thumbnail_url": "http://www.someshop.com/image1.jpg"
   }
 }
 ```
@@ -1917,6 +1953,7 @@ length | No | Product length. Between 0 and 9999999.99
 width | No | Product width. Between 0 and 9999999.99
 height | No | Product height. Between 0 and 9999999.99
 mid_code | No| Manufacturer's Identification Code | Max 25 characters
+thumbnail_url | No | Thumbmail Url with jpg, jpeg, png, webp extension. Max 200 characters
 
 # Unofficial SDKS
 
