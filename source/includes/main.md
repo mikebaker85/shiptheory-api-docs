@@ -337,6 +337,7 @@ request.post(options, function optionalCallback(err, httpResponse, body) {
 ```json
 {
   "success": true,
+  "status": "Complete",
   "carrier_result": {
     "status": "success",
     "tracking": "2887123123",
@@ -1944,8 +1945,8 @@ thumbnail_url | No | Thumbmail Url with jpg, jpeg, png, webp extension. Max 200 
 
 # Unofficial SDKS
 
-Below is a list of SDKs which we think could be useful for your development with the Shiptheory API. 
-These have not been developed by Shiptheory and therefore Shiptheory does not take any responsibilities for any issues and bugs which may arise. 
+Below is a list of SDKs which we think could be useful for your development with the Shiptheory API.
+These have not been developed by Shiptheory and therefore Shiptheory does not take any responsibilities for any issues and bugs which may arise.
 
 ## Shiptheory PHP API Client
 A PHP library which can be used to make requests to the Shiptheory API
