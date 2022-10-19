@@ -1045,7 +1045,7 @@ This endpoints makes it possible to search shipments in a Shiptheory account by 
 Parameter | Required | Description
 --------- | -------- | -----------
 created_from | Yes | YYYY-MM-DD. Date range start date. This is the shipment created date (the date the shipment was received by Shiptheory)
-created_to | Yes | YYYY-MM-DD. Date range end date. This is the shipment created date (the date the shipment was received by Shiptheory). Max date range is 31 days
+created_to | Yes | YYYY-MM-DD. Date range end date. This is the shipment created date (the date the shipment was received by Shiptheory). Max date range is 365 days
 limit | No | How many results to return? Allowed range is 1-100 shipments. Defaults to 25
 include_products | No | If set to "1", shipment product data will be attached to the response
 status | No | Options: *'Failed', 'Complete', 'Ready', 'Ignored', 'Not Ready', 'Print Error', 'Waiting', 'PROCESSING'*. Case sensitive. <a href="http://support.shiptheory.com/support/solutions/articles/12400-shiptheory-statuses-explained" target="_blank">Shiptheory Statuses Explained</a>.
@@ -1944,8 +1944,8 @@ thumbnail_url | No | Thumbmail Url with jpg, jpeg, png, webp extension. Max 200 
 
 # Unofficial SDKS
 
-Below is a list of SDKs which we think could be useful for your development with the Shiptheory API. 
-These have not been developed by Shiptheory and therefore Shiptheory does not take any responsibilities for any issues and bugs which may arise. 
+Below is a list of SDKs which we think could be useful for your development with the Shiptheory API.
+These have not been developed by Shiptheory and therefore Shiptheory does not take any responsibilities for any issues and bugs which may arise.
 
 ## Shiptheory PHP API Client
 A PHP library which can be used to make requests to the Shiptheory API
