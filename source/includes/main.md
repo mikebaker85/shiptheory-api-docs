@@ -337,6 +337,7 @@ request.post(options, function optionalCallback(err, httpResponse, body) {
 ```json
 {
   "success": true,
+  "status": "Complete",
   "carrier_result": {
     "status": "success",
     "tracking": "2887123123",
@@ -1074,6 +1075,87 @@ DeliveryAddress.lastname | No | Delivery Surname
 DeliveryAddress.tax_number | No | Tax number or EORI number of customer
 DeliveryAddress.what_3_words | No | A What3Words address formatted like: ///what.three.words
 
+# Picking Lists
+
+## Download
+
+```php
+$data = json_encode([
+    'shipments' => [
+        ['reference_1' => 'S123456'],
+        ['reference_2' => 'ORDER-5678'],
+    ],
+]);
+
+$ch = curl_init('https://api.shiptheory.com/v1/picking_lists/download');
+
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Accept: application/json',
+    'Content-Type: application/json',
+    'Authorization: Bearer AasLK190ALhaLDSj1nal92Ja...',
+    'Content-Length: ' . strlen($data),
+]);
+
+$result = curl_exec($ch);
+curl_close($ch);
+
+echo $result;
+```
+
+```javascript
+var request = require('request');
+var options = {
+    'method': 'POST',
+    'url': 'https://api.shiptheory.com/v1/picking_lists/download',
+    'headers': {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer eyJ0eXAi...'
+    },
+    body: JSON.stringify({
+        "shipments": [
+            {
+                "reference_1": "S123456"
+            },
+            {
+                "reference_2": "ORDER-5678"
+            }
+        ]
+    })
+};
+
+request(options, function (error, response) {
+    if (error) throw new Error(error);
+    console.log(response.body);
+});
+```
+
+> The above code returns JSON structured like this:
+
+```json
+{
+    "pdf": "JVBERg==..."
+}
+```
+
+### HTTP Request
+
+`POST https://api.shiptheory.com/v1/picking_lists/download`
+
+### Parameters
+
+Parameter | Required | Description
+--------- | -------- | -----------
+shipments | Yes | An array of shipment references
+| |
+**shipment** | |
+reference_1 | Optional | The shipment reference
+reference_2 | Optional | The order reference
 
 # Return Labels
 
@@ -1944,8 +2026,8 @@ thumbnail_url | No | Thumbmail Url with jpg, jpeg, png, webp extension. Max 200 
 
 # Unofficial SDKS
 
-Below is a list of SDKs which we think could be useful for your development with the Shiptheory API. 
-These have not been developed by Shiptheory and therefore Shiptheory does not take any responsibilities for any issues and bugs which may arise. 
+Below is a list of SDKs which we think could be useful for your development with the Shiptheory API.
+These have not been developed by Shiptheory and therefore Shiptheory does not take any responsibilities for any issues and bugs which may arise.
 
 ## Shiptheory PHP API Client
 A PHP library which can be used to make requests to the Shiptheory API
