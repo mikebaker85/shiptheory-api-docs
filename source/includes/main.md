@@ -1051,7 +1051,7 @@ This endpoints makes it possible to search shipments in a Shiptheory account by 
 Parameter | Required | Description
 --------- | -------- | -----------
 created_from | Yes | YYYY-MM-DD. Date range start date. This is the shipment created date (the date the shipment was received by Shiptheory)
-created_to | Yes | YYYY-MM-DD. Date range end date. This is the shipment created date (the date the shipment was received by Shiptheory). Max date range is 31 days
+created_to | Yes | YYYY-MM-DD. Date range end date. This is the shipment created date (the date the shipment was received by Shiptheory). Max date range is 365 days
 limit | No | How many results to return? Allowed range is 1-100 shipments. Defaults to 25
 include_products | No | If set to "1", shipment product data will be attached to the response
 status | No | Options: *'Failed', 'Complete', 'Ready', 'Ignored', 'Not Ready', 'Print Error', 'Waiting', 'PROCESSING'*. Case sensitive. <a href="http://support.shiptheory.com/support/solutions/articles/12400-shiptheory-statuses-explained" target="_blank">Shiptheory Statuses Explained</a>.
