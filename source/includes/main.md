@@ -207,13 +207,15 @@ $data = json_encode(
                 "qty" => 1,
                 "value" => 35.20,
                 "weight" => 0.5
+                "mid_code": "AUOZR92MEL",
             ),
             array(
                 "name" => "Earl Grey Gift Set",
                 "sku" => "earlgrey",
                 "qty" => 2,
                 "value" => 49.99,
-                "weight" => 1
+                "weight" => 1,
+                "mid_code": "AUOZR92MEL",
             )
         ),
         "packages" => array(
@@ -304,14 +306,16 @@ var options = {
           sku: 'ussbeard500',
           qty: 1,
           value: 32.50,
-          weight: 0.5
+          weight: 0.5,
+          mid_code: 'AUOZR92MEL'
       },
       {
           name: 'Earl Grey Gift Set',
           sku: 'earlgrey',
           qty: 2,
           value: 49.99,
-          weight: 1
+          weight: 1,
+          mid_code: 'AUOZR92MEL'
       }],
       packages: [{
           id: 10001,
@@ -428,6 +432,7 @@ weight | Yes | The weight of the product in kilograms, to three decimal places
 commodity_code  | No | UN Commodity Code, used for shipping internationally
 commodity_description | No | Commodity Description, used for shipping internationally
 commodity_manucountry | No | Country of Manufacture, used for shipping internationally
+mid_code | No| Manufacturer's Identification Code | Max 25 characters
 | |
 **packages** | | Optional. See [Using Package Sizes](https://support.shiptheory.com/support/solutions/articles/24000026829-using-package-sizes)
 id | Cond. | The ID of the Package. See [Package Sizes](https://shiptheory.com/developer/index.html#packages)
@@ -1582,7 +1587,8 @@ $data = json_encode(
         "commodity_description" => "Ladies hat 90% cotton 20% mixed",
         "commodity_manucountry" => "GBR",
         "commodity_composition" => "Cotton",
-        "barcode" => "ABC123123"
+        "barcode" => "ABC123123",
+        "mid_code": "AUOZR92MEL",
     )
 );
 
@@ -1624,12 +1630,13 @@ var options = {
       sku: 'hat1',
       name: 'Ladies Wedding Hat',
       price: 45,
-      weight: 3.50',
+      weight: 3.50,
       commodity_code: '123456',
       commodity_description: 'Ladies hat 90% cotton 20% mixed',
       commodity_manucountry: 'GBR',
       commodity_composition: 'Cotton',
       barcode: 'ABC123123',
+      mid_code: 'AUOZR92MEL'
     }
 };
 
@@ -1656,6 +1663,7 @@ request.post(options, function optionalCallback(err, httpResponse, body) {
     "commodity_description": "Ladies hat 90% cotton 20% mixed",
     "commodity_manucountry": "GBR",
     "commodity_composition": "Cotton",
+    "mid_code": "AUOZR92MEL",
     "created": "2020-11-23T14:05:02+0000",
     "modified": "2020-11-23T14:05:02+0000"
   }
@@ -1698,6 +1706,7 @@ commodity_composition | No | Commodity composition. Max 100 characters
 length | No | Product length. Between 0 and 9999999.99
 width | No | Product width. Between 0 and 9999999.99
 height | No | Product height. Between 0 and 9999999.99
+mid_code | No| Manufacturer's Identification Code | Max 25 characters
 thumbnail_url | No | Thumbmail Url with jpg, jpeg, png, webp extension. Max 200 characters
 
 ## View Product
@@ -1899,6 +1908,7 @@ $data = json_encode(
         "commodity_manucountry" => "GBR",
         "commodity_composition" => "Cotton",
         "barcode" => "ABC123123",
+        "mid_code": "AUOZR92MEL",
         "thumbnail_url"=> "http://www.someshop.com/image1.jpg"
     )
 );
@@ -1941,12 +1951,13 @@ var options = {
       sku: 'hat1',
       name: 'Ladies Wedding Hat',
       price: 45,
-      weight: 3.50',
+      weight: 3.50,
       commodity_code: '123456',
       commodity_description: 'Ladies hat 90% cotton 20% mixed',
       commodity_manucountry: 'GBR',
       commodity_composition: 'Cotton',
       barcode: 'ABC123123',
+      mid_code: 'AUOZR92MEL'
       thumbnail_url: "http://www.someshop.com/image1.jpg"
     }
 };
@@ -1974,6 +1985,7 @@ request.post(options, function optionalCallback(err, httpResponse, body) {
     "commodity_description": "Ladies hat 90% cotton 20% mixed",
     "commodity_manucountry": "GBR",
     "commodity_composition": "Cotton",
+    "mid_code": "AUOZR92MEL",
     "created": "2020-11-23T14:05:02+0000",
     "modified": "2020-11-23T14:05:02+0000",
     "length": 1,
@@ -2022,6 +2034,7 @@ commodity_composition | No | Commodity composition. Max 100 characters
 length | No | Product length. Between 0 and 9999999.99
 width | No | Product width. Between 0 and 9999999.99
 height | No | Product height. Between 0 and 9999999.99
+mid_code | No| Manufacturer's Identification Code | Max 25 characters
 thumbnail_url | No | Thumbmail Url with jpg, jpeg, png, webp extension. Max 200 characters
 
 # Unofficial SDKS
