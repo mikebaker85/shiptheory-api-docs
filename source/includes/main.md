@@ -361,6 +361,7 @@ reference | Yes | Your unique reference for this shipment. We use this when a ca
 reference2 | Yes | A second non-unique reference
 delivery_service | No | The Shiptheory delivery service ID. See Delivery Services. If this is not provided or you pass a delivery service that does not exist, the shipment will be subject to any shipping rules setup on your account
 increment | No | Only supported alongside `delivery_service`, used when an account has multiple instances of the same carrier. See <a href="https://support.shiptheory.com/support/solutions/articles/24000060014-finding-your-carrier-increment" target="_blank">Finding Your Carrier Increment</a>
+mark_for_approval | No | Only supported alongside `delivery_service`. Use this to bypass rules and set the status of a Shipment to ``waiting``, which means it requires approval before it can be booked with the selected carrier.
 | |
 **shipment_detail** | |
 weight | Yes | The weight of the shipment in kilograms, to three decimal places
@@ -1251,13 +1252,23 @@ request.get('https://api.shiptheory.com/v1/services', {
   "delivery_services": {
     "DPD": {
       "Parcel - Homecall": {
-        "id": "37"
+        "id": "37",
+        "courier_increment_ids": [
+          "1"
+        ]
       },
       "Parcel - Two Day": {
-        "id": "38"
+        "id": "38",
+        "courier_increment_ids": [
+          "1",
+          "2"
+        ]
       },
       "Parcel - Next Day": {
-        "id": "39"
+        "id": "39",
+        "courier_increment_ids": [
+          "2"
+        ]
       }
      }
    }
@@ -1270,6 +1281,8 @@ Performing a GET on `/services` returns a list of outgoing delivery services ava
 When booking a shipment, if you pass a ``delivery_service`` your shipment will skip shipping rules and book the shipment with the carrier that owns the specified delivery service.
 
 The ``delivery_service`` field relates directly to the ``id`` of the Delivery Service in Shiptheory. You can get a list of the Delivery Services available to your Shiptheory account by calling the Services API endpoint.
+
+The response will also list which courier increments a delivery service is available for, by returning an array of IDs in the ``courier_increment_ids`` field.
 
 ### HTTP Request
 
@@ -1944,8 +1957,8 @@ thumbnail_url | No | Thumbmail Url with jpg, jpeg, png, webp extension. Max 200 
 
 # Unofficial SDKS
 
-Below is a list of SDKs which we think could be useful for your development with the Shiptheory API. 
-These have not been developed by Shiptheory and therefore Shiptheory does not take any responsibilities for any issues and bugs which may arise. 
+Below is a list of SDKs which we think could be useful for your development with the Shiptheory API.
+These have not been developed by Shiptheory and therefore Shiptheory does not take any responsibilities for any issues and bugs which may arise.
 
 ## Shiptheory PHP API Client
 A PHP library which can be used to make requests to the Shiptheory API
