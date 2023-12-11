@@ -227,7 +227,12 @@ $data = json_encode(
                 "id" => 100001,
                 "weight" => 10
             )
-        )
+        ),
+        "tags" => array(
+          1,
+          2,
+          3,
+        ),
     )
 );
 
@@ -324,7 +329,12 @@ var options = {
       {
           id: 10002,
           weight: 10.39
-      }]
+      }],
+      tags: [
+        1,
+        2,
+        3
+      ]
     }
 };
 
@@ -438,6 +448,7 @@ mid_code | No| Manufacturer's Identification Code | Max 25 characters
 **packages** | | Optional. See [Using Package Sizes](https://support.shiptheory.com/support/solutions/articles/24000026829-using-package-sizes)
 id | Cond. | The ID of the Package. See [Package Sizes](https://shiptheory.com/developer/index.html#packages)
 weight | Cond. | Weight of the package, in Kg, to two decimal places
+**tags** | | Optional. Provide an array of tag IDs to add tags to the shipment.
 
 <aside class="notice">
 If you do not send a Senders address, the default shipping location from your Shiptheory account will be used.
@@ -501,6 +512,16 @@ request.get('https://api.shiptheory.com/v1/shipments/S1234', {
     "duty_tax_number": "IM123456789",
     "duty_tax_number_type": "IOSS"
   },
+  "tags": [
+    {
+      "id": 1,
+      "name": "Tag A"
+    },
+    {
+      "id": 2,
+      "name": "Tag B"
+    }
+  ],
   "messages": [
     {
       "message": "Shipment added over API by test@testweb.com (82.45.13.184)",
@@ -555,6 +576,10 @@ created  | The datetime the shipment was created
 modified | The last datetime the shipment was updated
 status | The status of the shipment now. <a href="http://support.shiptheory.com/support/solutions/articles/12400-shiptheory-statuses-explained" target="_blank">See statuses</a>
 label | Shipping label, where available as a base64 encoded PDF
+| |
+**tags** | |
+id | Tag ID
+name | Tag Name
 | |
 **messages** | |
 message | Activity reported by Shiptheory
@@ -2050,7 +2075,8 @@ height | No | Product height. Between 0 and 9999999.99
 mid_code | No| Manufacturer's Identification Code | Max 25 characters
 thumbnail_url | No | Thumbmail Url with jpg, jpeg, png, webp extension. Max 200 characters
 
-# Unofficial SDKS
+<!-- SDKs -->
+# Unofficial SDKs
 
 Below is a list of SDKs which we think could be useful for your development with the Shiptheory API.
 These have not been developed by Shiptheory and therefore Shiptheory does not take any responsibilities for any issues and bugs which may arise.

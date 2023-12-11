@@ -9,6 +9,7 @@ toc_footers:
 
 includes:
   - main
+  - _tags
   - _errors
 
 search: true
