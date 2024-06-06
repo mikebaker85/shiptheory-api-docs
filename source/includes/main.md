@@ -28,9 +28,9 @@ If you are developing an application that will be used by more than 1 company, o
   },
 ```
 
-Please contact [partners@shiptheory.com](mailto:partners@shiptheory.com) to obtain a partner tag. Tags are used to provide better support to customers and partners.
+Please contact partners@shiptheory.com to obtain a partner tag. Tags are used to provide better support to customers and partners.
 
-If you are developing an integration with the Shiptheory API you will need to [register for a regular Shiptheory account](https://shiptheory.com/login). Once registered, please contact our [Partnerships Team](mailto:partners@shiptheory.com) who can set you up with Sandbox access.
+If you are developing an integration with the Shiptheory API you will need to [register for a regular Shiptheory account](https://shiptheory.com/login). Once registered, please contact our Partnerships Team who can set you up with Sandbox access.
 
 
 ## Pagination
